@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NEP Grace Calculator</title>
+  <meta name="description" content="NEP Result Calculator with Grace Marks" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E💗%3C/text%3E%3C/svg%3E"/>
+  <style>
+    :root{
+      --bg:#ffe6f0;
+      --card:#fff0f6;
+      --muted:#a84c7c;
+      --text:#5a0037;
+      --brand:#ff4d94;
+      --brand-2:#ff99cc;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.15);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:radial-gradient(1000px 600px at 80% -10%,rgba(255,77,148,.25),transparent 50%),
+      radial-gradient(1000px 600px at -20% 20%,rgba(255,255,255,0.95),transparent 50%),
+      var(--bg);color:var(--text);line-height:1.6}
+    .container{max-width:1000px;margin:0 auto;padding:24px}
+    header{position:sticky;top:0;background:linear-gradient(180deg,rgba(255,230,240,.95),rgba(255,230,240,.7) 60%,transparent);backdrop-filter:saturate(1.2) blur(10px);z-index:10}
+    .nav{display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;color:var(--brand)}
+    .logo-badge{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center;box-shadow:var(--shadow);color:white;font-weight:800}
+    
+    /* Buttons */
+    .cta,button{
+      padding:10px 16px;
+      border-radius:999px;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      font-weight:600;
+      color:white;
+      border:none;
+      cursor:pointer;
+      box-shadow:var(--shadow);
+      transition:all .3s ease;
+    }
+    .cta:hover,button:hover{
+      transform:scale(1.05);
+      box-shadow:0 0 15px rgba(255,77,148,.6);
+    }
+
+    h1,h2,h3{color:var(--brand);margin:0}
+    .card{background:var(--card);border:1px solid rgba(255,77,148,.2);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,77,148,.3);background:#fff;color:var(--text)}
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      background: #fff;
+      border: 2px solid #d6336c;
+      color: #d6336c;
+      padding: 10px 20px;
+      cursor: pointer;
+      margin: 0 5px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    .tab-btn.active {
+      background: #d6336c;
+      color: #fff;
+    }
+    .tab-content {
+      display: none;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Table */
+    table{width:100%;border-collapse:collapse;margin-top:20px;animation:fadeIn .8s ease}
+    th,td{border:1px solid rgba(255,77,148,.3);padding:8px;text-align:center}
+    th{background:rgba(255,153,204,.2);color:var(--brand)}
+    .graceApplied{background:rgba(255,182,193,.3);animation:highlight 2s ease infinite alternate}
+    .pass{color:green;font-weight:700}
+    .fail{color:red;font-weight:700}
+
+    /* Animations */
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes highlight{from{background:rgba(255,182,193,.3)}to{background:rgba(255,182,193,.5)}}
+
+    /* Result Animation */
+    #overall{margin-top:20px;font-weight:700;font-size:18px;animation:fadeIn 1s ease}
+    
+    footer{padding:20px;text-align:center;color:var(--muted);margin-top:40px}
+    @media(max-width:900px){.nav{flex-direction:column;gap:10px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">
+        <div class="logo-badge">∎</div>
+        <span>NEP Grace Calculator</span>
+      </div>
+      <nav style="display:flex; gap:12px;">
+        <a href="https://whatsapp.com/channel/0029Va4irjP23n3Vh4HMcx00" class="cta">WhatsApp</a>
+        <a href="https://t.me/myMSUSre" class="cta">Telegram</a>
+        <a href="https://t.me/HELPforDmbot" class="cta">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>NEP Result Calculator (with Grace)</h1>
+    <p style="color:var(--muted)">
+      <b>Note:</b> Only for NEP B.A., B.Sc, B.Com & M.A., M.Sc., M.Com. Students
+       </p>
+    <p style="color:#007bff">
+      <b>Note:</b> This is not an Official Website of <b>Maa Shakumbhari University, Saharanpur</b>.
+      "This is for information purposes only. Errors in result calculation are possible."
+    </p>
+<div class="card">
+    <div style="text-align: center; margin: 40px 0;">
+  <h2 style="font-size: 18px; font-weight: bold; color: #2c3e50;">
+    Meet Our <span style="color: #007bff;">Admin Team</span>
+  </h2>
+  <p style="font-size: 16px; color: #555;">
+    <b>Aditya Chaudhary</b> (Owner) | <b>Chetan Joshi</b> (Co-Owner) | <b>DM, PC, AP, AM, GS</b> (Admin Team)
+  </p>
+</div>
+
+  <!-- UG Section -->
+  <div id="ug" class="tab-content active">
+    <div style="text-align: center; margin: 10px 0;">
+  <h2 style="font-size: 18px; font-weight: bold; color: #2c3e50;">
+        <a href="https://universityupdates08.github.io/UG-NEPmymsusre.github.io/" class="cta">UG (B.A./B.Sc./B.Com.)</a><a href="https://universityupdates08.github.io/PG-NEPmymsusre.github.io/" class="cta">PG (M.A./M.Sc./M.Com.)</a>
+
+  </h2>
+    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEP Result Calculator (with Grace)</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<style>
+body { font-family: Arial, sans-serif; background:#f7f9fb; padding:10px; margin:0; }
+h1 { text-align:center; font-size:1.4em; margin-bottom:5px; }
+h2 { font-size:1em; margin-top:15px; margin-bottom:8px; cursor:pointer; }
+.description { text-align:center; margin-bottom:10px; font-size:0.9em; font-weight:bold; }
+.owner { text-align:center; font-size:0.85em; margin-bottom:15px; }
+.owner b { color:red; font-size:1em; }
+.owner small { font-size:0.75em; display:block; }
+.subject-section { margin-bottom:15px; border:1px solid #ccc; border-radius:5px; padding:10px; background:#fff; }
+.subject { margin-bottom:8px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.subject label { min-width:120px; font-weight:bold; margin-bottom:0; }
+.subject input[type=number] { width:45px; text-align:center; }
+button { padding:6px 12px; margin:5px 5px 5px 0; cursor:pointer; background:#007BFF; color:#fff; border:none; border-radius:5px; font-size:0.85em; transition:0.3s; }
+button:hover { background:#0056b3; transform:scale(1.05); }
+table { width:100%; border-collapse: collapse; margin-top:15px; font-size:0.85em; }
+thead { background:#f0f0f0; }
+th, td { border:1px solid #ccc; padding:6px; text-align:center; }
+.pass { color:green; font-weight:bold; }
+.fail { color:red; font-weight:bold; }
+.grace { color:red; font-weight:bold; }
+.graceApplied { background:#fff0f0; } 
+#overall { font-size:1.1em; text-align:center; margin-top:10px; font-weight:bold; }
+#note { margin-top:20px; font-size:0.8em; text-align:center; color:#333; }
+@media(max-width:600px){
+  .subject input[type=number] { width:40px; }
+  table { font-size:0.75em; }
+  th, td { padding:4px; }
+}
+</style>
+</head>
+<body>
+
+<div id="note">This result is only for information purpose. Not valid to use for admission or other activities</div>
+</div>
+
+   <footer>
+    © 2025 | Designed by Aditya Chaudhary💗
+  </footer>
+
+</body>
+</html>
