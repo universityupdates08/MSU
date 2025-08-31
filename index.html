@@ -4,831 +4,208 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MSU NEP Result Calculator (with Grace)</title>
-<link rel="stylesheet" href="style.css">
-
 <style>
-/* ✅ Reuse your styles (light yellow theme) */
-body { font-family: Arial, sans-serif; background:#f7f9fb; margin:0; padding:10px; }
+body { font-family: Arial, sans-serif; background:#fffde7; margin:0; padding:10px; }
 .tabs { display:flex; justify-content:center; margin:20px 0; }
 .tab-btn { background:#fff8dc; border:2px solid #FFC107; color:#FFC107; padding:10px 20px; margin:0 5px; border-radius:8px; font-weight:bold; cursor:pointer; }
 .tab-btn.active { background:#FFC107; color:#333; }
-.tab-content { display:none; }
+.tab-content { display:none; max-width:900px; margin:auto; background:#fffbea; padding:20px; border-radius:12px; box-shadow:0 4px 8px rgba(255,193,7,0.3); }
 .tab-content.active { display:block; }
+.cta, button { padding:8px 16px; border:none; border-radius:8px; background:linear-gradient(135deg,#FFD95A,#FFC107); font-weight:600; cursor:pointer; transition:.3s; }
+.cta:hover, button:hover { transform:scale(1.05); box-shadow:0 0 12px rgba(255,193,7,0.6); }
+.rules { background:#fffde7; padding:10px; border:1px solid #ccc; margin:10px 0; border-radius:8px; }
+.subject-section { margin:10px 0; padding:10px; background:#fffde7; border-radius:8px; }
+.subject { display:flex; gap:6px; margin:4px 0; }
+.subject input { width:50px; }
+.pass{color:green;font-weight:bold;} .fail{color:red;font-weight:bold;} .grace{color:red;} .graceApplied{background:#fff0f0;}
+.print-btn { margin-top:10px; background:#28a745; color:#fff; }
+.print-btn:hover { background:#218838; }
 </style>
 </head>
 <body>
 
+<h1 style="text-align:center">MSU NEP Result Calculator (with Grace)</h1>
+<header>
+  <nav style="text-align:center""display:flex; gap:12px;">
+    <a href="https://whatsapp.com/channel/0029Va4irjP23n3Vh4HMcx00" class="cta">WhatsApp</a>
+    <a href="https://t.me/myMSUSre" class="cta">Telegram</a>
+    <a href="https://t.me/HELPforDmbot" class="cta">Contact</a>
+  </nav>
+</header>
 
-<!-- 🔘 UG / PG Tabs -->
+<main class="container">
+  <p style="color:#007bff">
+    <b>Note:</b> This is not an Official Website of <b>Maa Shakumbhari University, Saharanpur</b>.
+    "This is for information purposes only. Errors in result calculation are possible."
+  </p>
+  <div class="card">
+    <div style="text-align: center; margin: 40px 0;">
+  <h2 style="font-size: 18px; font-weight: bold; color: #2c3e50;">
+    Meet Our <span style="color: #007bff;">Admin Team</span>
+  </h2>
+  <p style="font-size: 16px; color: #555;">
+    <b>Aditya Chaudhary</b> (Owner) | <b>Chetan Joshi</b> (Co-Owner) | <b>DM, PC, AP, AM, GS</b> (Admin Team)
+  </p>
+</div>
+
+<!-- Tabs -->
 <div class="tabs">
-  <button class="tab-btn active" onclick="openTab('ugTab')">UG (B.A./B.Sc./B.Com)</button>
-  <button class="tab-btn" onclick="openTab('pgTab')">PG (M.A./M.Sc./M.Com)</button>
+  <button class="tab-btn active" onclick="openTab('ugTab',event)">UG (B.A./B.Sc./B.Com)</button>
+  <button class="tab-btn" onclick="openTab('pgTab',event)">PG (M.A./M.Sc./M.Com)</button>
 </div>
 
-<!-- 📌 UG Section -->
+<!-- UG Section -->
 <div class="tab-content active" id="ugTab">
- <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MSU NEP Result Calculator (with Grace)</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-<style>
-body { font-family: Arial, sans-serif; background:#f7f9fb; padding:10px; margin:0; }
-h1 { text-align:center; font-size:1.3em; margin-bottom:5px; }
-h2 { font-size:1em; margin-top:10px; margin-bottom:8px; cursor:pointer; }
-.description { text-align:center; margin-bottom:10px; font-size:0.85em; font-weight:bold; }
-.owner { text-align:center; font-size:0.8em; margin-bottom:12px; }
-.owner b { color:red; font-size:1em; }
-.owner small { font-size:0.7em; display:block; }
-.rules { border:1px solid #ccc; background:#fff; padding:8px; margin-bottom:12px; border-radius:8px; font-size:0.8em; box-shadow:0 3px 6px rgba(0,0,0,0.1); background:#fffde7; }
-.rules ul { margin:0; padding-left:18px; line-height:1.4; }
-
-
-
-/* Buttons */
-.cta, button {
-  padding: 10px 16px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #FFD95A, #FFC107); /* light yellow gradient */
-  font-weight: 600;
-  color: #333;  /* dark text for readability */
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.4); /* soft yellow shadow */
-  transition: all .3s ease;
-}
-.cta:hover, button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255, 193, 7, 0.7);
-}
-
-h1, h2, h3 {
-  color: #FFC107; /* yellow headings */
-  margin: 0;
-}
-
-.card {
-  background: #fffbea; /* very light yellow background */
-  border: 1px solid rgba(255, 193, 7, 0.4);
-  border-radius: var(--radius);
-  padding: 18px;
-  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
-}
-
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 193, 7, 0.4);
-  background: #fff;
-  color: #333;
-}
-
-/* Tabs */
-.tabs {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.tab-btn {
-  background: #fff8dc; /* light cream */
-  border: 2px solid #FFC107;
-  color: #FFC107;
-  padding: 10px 20px;
-  cursor: pointer;
-  margin: 0 5px;
-  border-radius: 8px;
-  font-weight: bold;
-}
-
-.tab-btn.active {
-  background: #FFC107;
-  color: #333; /* readable dark text */
-}
-
-.tab-content {
-  display: none;
-  padding: 20px;
-  max-width: 800px;
-  margin: auto;
-  background: #fffbea; /* soft yellow box */
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
-}
-
-.tab-content.active {
-  display: block;
-}
-
-/* ✅ 3D Card Style */
-.subject-section {
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 10px;
-  background: #fffde7;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.subject-section:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
-}
-
-.subject { margin-bottom:6px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-.subject label { min-width:110px; font-weight:bold; margin-bottom:0; font-size:0.85em; }
-.subject input[type=number] { width:40px; text-align:center; font-size:0.85em; }
-
-button { padding:6px 10px; margin:4px 4px 4px 0; cursor:pointer; background:#007BFF; color:#fff; border:none; border-radius:5px; font-size:0.8em; transition:0.3s; }
-button:hover { background:#0056b3; }
-
-table { width:100%; border-collapse: collapse; margin-top:12px; font-size:0.75em; }
-thead { background:#f0f0f0; }
-th, td { border:1px solid #ccc; padding:5px; text-align:center; }
-.pass { color:green; font-weight:bold; }
-.fail { color:red; font-weight:bold; }
-.grace { color:red; font-weight:bold; }
-.graceApplied { background:#fff0f0; } 
-#overall { font-size:1em; text-align:center; margin-top:8px; font-weight:bold; }
-#note { margin-top:12px; font-size:0.7em; text-align:center; color:#333; }
-
-/* ✅ Grade Card light yellow */
-#gradeCard {
-  background: #fffde7;
-  padding: 8px;
-  border-radius: 6px;
-  box-shadow:0 3px 6px rgba(0,0,0,0.15);
-}
-</style>
-</head>
-<body>
-
-  <header>
-      <nav style="display:flex; gap:12px;">
-        <a href="https://whatsapp.com/channel/0029Va4irjP23n3Vh4HMcx00" class="cta">WhatsApp</a>
-        <a href="https://t.me/myMSUSre" class="cta">Telegram</a>
-        <a href="https://t.me/HELPforDmbot" class="cta">Contact</a>
-      </nav>
-  
-  <main class="container">
-    <h1>MSU NEP Result Calculator (with Grace)</h1>
-    <p style="color:var(--muted)">
-      <b>Note:</b> Only for UG-NEP (B.A., B.Sc, B.Com) Students
-       </p>
-    <p style="color:#007bff">
-      <b>Note:</b> This is not an Official Website of <b>Maa Shakumbhari University, Saharanpur</b>.
-      "This is for information purposes only. Errors in result calculation are possible."
-    </p>
-
-<div class="card">
-    <div style="text-align: center; margin: 40px 0;">
-  <h2 style="font-size: 18px; font-weight: bold; color: #2c3e50;">
-    Meet Our <span style="color: #007bff;">Admin Team</span>
-  </h2>
-  <p style="font-size: 16px; color: #555;">
-    <b>Aditya Chaudhary</b> (Owner) | <b>Chetan Joshi</b> (Co-Owner) | <b>DM, PC, AP, AM, GS</b> (Admin Team)
-  </p>
-</div>
-
   <h2>UG NEP Result Calculator</h2>
-  <p><b>Note:</b> Only for UG-NEP (B.A., B.Sc, B.Com) Students</p>
-  
-
-<!-- Grace Rules -->
-<div class="rules">
-<h2>Grace Rules</h2>
-<ul>
-<li>किसी भी Student को अधिकतम 5 Marks तक Grace मिल सकता है।</li>
-<li>Grace अधिकतम 2 subjects में दिया जाएगा।</li>
-<li>Major Theory / Minor / Practical subjects में पास होने के लिए External न्यूनतम 25 और कुल न्यूनतम 33 होना चाहिए।</li>
-<li>Skill / Project / Co-Curricular subjects में पास होने के लिए Total न्यूनतम 40 होना चाहिए।</li>
-<li>अगर किसी भी Subject में fail रह जाते हैं तो किसी भी Subject में दिया गया Grace Cancel हो जाएगा।</li>
-</ul>
+  <div class="rules">
+    <ul>
+      <li>Max 5 grace marks</li>
+      <li>Grace in max 2 subjects</li>
+      <li>Major/Minor/Practical pass = 25 External & 33 Total</li>
+      <li>Skill/Project/Co-Curricular pass = 40 Total</li>
+    </ul>
+  </div>
+  <div id="ug-subjects"></div>
+  <button onclick="addSubject('ug-subjects')">➕ Add Subject</button>
+  <button onclick="calculateUG()">📊 Calculate UG Result</button>
+  <div id="ug-result"></div>
 </div>
 
-<!-- Semester Selection -->
-<div class="subject-section">
-<h2>Select Semester</h2>
-<select id="semester" onchange="semesterChange()">
-  <option value="">--Select Semester--</option>
-  <option value="1">1st Semester</option>
-  <option value="2">2nd Semester</option>
-  <option value="3">3rd Semester</option>
-  <option value="4">4th Semester</option>
-  <option value="5">5th Semester</option>
-  <option value="6">6th Semester</option>
-</select>
-</div>
-
-<!-- Marks Section -->
-<div id="marksSection" style="display:none;">
-
-  <div id="semTitle" style="text-align:center; font-weight:bold; font-size:1em; margin-bottom:8px;"></div>
-
-  <div class="subject-section">
-  <h2>Major Theory Subjects</h2>
-  <div id="majorTheorySubjects"></div>
-  <button onclick="addMajorTheory()">Add Major Theory</button>
-  </div>
-
-  <div class="subject-section">
-  <h2>Major Practical Subjects</h2>
-  <div id="majorPracticalSubjects"></div>
-  <button onclick="addMajorPractical()">Add Major Practical</button>
-  </div>
-
-  <div class="subject-section" id="minorSection">
-  <h2>Minor Subjects</h2>
-  <div id="minorSubjects"></div>
-  <button onclick="addMinor()">Add Minor Subject</button>
-  </div>
-
-  <div class="subject-section" id="skillSection">
-  <h2>Skill Development</h2>
-  <div id="skillSubjects"></div>
-  <button onclick="addSkill()">Add Skill Development</button>
-  </div>
-
-  <div class="subject-section">
-  <h2>Co-Curricular</h2>
-  <div class="subject">
-  <label>Co-Curricular:</label>
-  EXT <input type="number" min="0" max="99" class="coExternal">
-  INT <input type="number" min="0" max="99" class="coInternal">
-  </div>
-  </div>
-
-  <div class="subject-section" id="projectSection" style="display:none;">
-  <h2>Project</h2>
-  <div id="projectSubjects"></div>
-  <button onclick="addProject()">Add Project</button>
-  </div>
-
-  <div style="text-align:center; margin-top:8px;">
-  <button onclick="calculateResult()">Calculate Result</button>
-  <button onclick="resetForm()">Reset</button>
-  <button onclick="downloadPDF()">Download Grade Card (PDF)</button>
-  </div>
-
-  <div id="gradeCard">
-  <table id="resultTable">
-  <thead>
-  <tr>
-  <th>Subject</th>
-  <th>External</th>
-  <th>Grace</th>
-  <th>External after Grace</th>
-  <th>Internal</th>
-  <th>Total</th>
-  <th>Status</th>
-  <th>Remarks</th>
-  </tr>
-  </thead>
-  <tbody></tbody>
-  </table>
-  <div id="overall"></div>
-  <div id="note">This result is only for information purpose. Not valid to use for admission or other activities</div>
-  </div>
-
-   <footer>
-    © 2025 | Designed by Aditya Chaudhary💗
-  </footer>
-  
-</div>
-
-<script>
-let majorTheoryCount=0, majorPracticalCount=0, minorCount=0, skillCount=0, projectCount=0;
-const maxGrace=5, maxGraceSubjects=2;
-for(let i=0;i<3;i++) addMajorTheory();
-
-function semesterChange(){
-  let sem=document.getElementById("semester").value;
-  let semTitle=document.getElementById("semTitle");
-  if(sem===""){ document.getElementById("marksSection").style.display="none"; return; }
-  document.getElementById("marksSection").style.display="block";
-  semTitle.innerHTML="Semester: "+sem;
-  if(sem==="5" || sem==="6"){ document.getElementById("minorSection").style.display="none"; document.getElementById("skillSection").style.display="none"; }
-  else { document.getElementById("minorSection").style.display="block"; document.getElementById("skillSection").style.display="block"; }
-  if(sem==="6"){ document.getElementById("projectSection").style.display="block"; }
-  else { document.getElementById("projectSection").style.display="none"; }
-}
-
-function addSubject(containerId,name,extClass,intClass,label1="EXT",label2="INT"){
-  const container=document.getElementById(containerId);
-  container.style.display="block";
-  const div=document.createElement("div");
-  div.className="subject";
-  div.innerHTML=`<label>${name}:</label>
-  ${label1} <input type="number" class="${extClass}" min="0" max="99">`+
-  (intClass?` ${label2} <input type="number" class="${intClass}" min="0" max="99">`:"");
-  container.appendChild(div);
-}
-function addMajorTheory(){ majorTheoryCount++; addSubject("majorTheorySubjects","Major Theory "+majorTheoryCount,"majorTheoryExternal","majorTheoryInternal"); }
-function addMajorPractical(){ majorPracticalCount++; addSubject("majorPracticalSubjects","Major Practical "+majorPracticalCount,"majorPracticalExternal","majorPracticalInternal"); }
-function addMinor(){ minorCount++; addSubject("minorSubjects","Minor "+minorCount,"minorExternal","minorInternal"); }
-function addSkill(){ skillCount++; addSubject("skillSubjects","Skill Development "+skillCount,"skillTheory","skillPractical","TH","PR"); }
-function addProject(){ projectCount++; addSubject("projectSubjects","Project "+projectCount,"projectMarks",null,"Total",""); }
-
-function calculateResult(){
-  const majors=document.querySelectorAll(".majorTheoryExternal");
-  const majorInternals=document.querySelectorAll(".majorTheoryInternal");
-  const coExt=document.querySelector(".coExternal").value;
-  const coInt=document.querySelector(".coInternal").value;
-  let mandatoryOk=true;
-  if(majors.length<3){ mandatoryOk=false; }
-  else { for(let i=0;i<3;i++){ if((majors[i].value==="" || majorInternals[i].value==="")) mandatoryOk=false; } }
-  if(coExt==="" || coInt==="") mandatoryOk=false;
-  if(!mandatoryOk){ alert("Plz Enter Marks of All Subjects"); return; }
-
-  const tbody=document.querySelector("#resultTable tbody"); tbody.innerHTML="";
-  let graceLeft=maxGrace, remainingGraceSubjects=maxGraceSubjects;
-  let subjects=[];
-  [
-    ["majorTheoryExternal","majorTheoryInternal","majorTheory","Major Theory"],
-    ["majorPracticalExternal","majorPracticalInternal","majorPractical","Major Practical"],
-    ["minorExternal","minorInternal","minor","Minor"],
-    ["skillTheory","skillPractical","skill","Skill Development"],
-    ["projectMarks",null,"project","Project"]
-  ].forEach(([extClass,intClass,type,displayName])=>{
-    const extInputs=document.querySelectorAll("."+extClass);
-    const intInputs=intClass?document.querySelectorAll("."+intClass):[];
-    extInputs.forEach((el,i)=>{
-      const ext=Number(el.value)||0;
-      const intr=intClass?Number(intInputs[i].value)||0:0;
-      if(ext!==0 || intr!==0){ subjects.push({name:`${displayName} ${i+1}`,ext,internal:intr,type,grace:0, initialPass:false}); }
-    });
-  });
-  const coE=Number(document.querySelector(".coExternal").value)||0;
-  const coI=Number(document.querySelector(".coInternal").value)||0;
-  if(coE || coI) subjects.push({name:"Co-Curricular",ext:coE,internal:coI,type:"coCurricular",grace:0,initialPass:false});
-
-  function checkPass(subj,extTotal){
-    const total=subj.internal+extTotal;
-    if(subj.type==="majorTheory"||subj.type==="minor"||subj.type==="majorPractical") return (extTotal>=25 && total>=33);
-    if(subj.type==="skill"||subj.type==="coCurricular"||subj.type==="project") return total>=40;
-    return false;
-  }
-  subjects.forEach(subj=>{ subj.initialPass = checkPass(subj,subj.ext); });
-  subjects.forEach(subj=>{
-    if(graceLeft<=0 || remainingGraceSubjects<=0) return;
-    let total=subj.ext+subj.internal; let needGrace=0;
-    if(subj.type==="majorTheory"||subj.type==="minor"||subj.type==="majorPractical"){
-      if(subj.ext<25){ needGrace=25-subj.ext; }
-      if(needGrace===0 && total<33 && subj.ext>=25){ needGrace=33-total; }
-    } else if(subj.type==="skill"||subj.type==="coCurricular"||subj.type==="project"){ if(total<40){ needGrace=40-total; } }
-    if(needGrace>0){ const applied=Math.min(needGrace,graceLeft,maxGrace); subj.ext+=applied; subj.grace+=applied; graceLeft-=applied; remainingGraceSubjects--; }
-  });
-
-  let anyFailAfterGrace=false; subjects.forEach(subj=>{ if(!checkPass(subj,subj.ext)) anyFailAfterGrace=true; });
-  subjects.forEach(subj=>{
-    const total=subj.ext+subj.internal;
-    let status=checkPass(subj,subj.ext)?"Pass":"Fail";
-    if(subj.initialPass && subj.grace===0) status="Pass";
-    if(anyFailAfterGrace && !subj.initialPass && subj.grace>0) status="Fail";
-    let remark="";
-    if(status==="Fail"){
-      if(subj.type==="majorTheory"||subj.type==="minor"||subj.type==="majorPractical"){
-        if(subj.ext<25) remark=`Need ${25-(subj.ext)} more marks in External`;
-        else if(total<33) remark=`Need ${33-total} more marks in Total`;
-      } else { remark=`Need ${40-total} more marks in Total`; }
-    } else { remark="OK"; }
-
-    if(anyFailAfterGrace && subj.grace>0){
-      remark = `Grace Mark(s) Cancelled - ${remark}`;
-    }
-
-    const tr=document.createElement("tr");
-    tr.className=subj.grace>0?"graceApplied":"";
-    tr.innerHTML=`<td>${subj.name}</td><td>${subj.ext-subj.grace}</td><td class="grace">${subj.grace}</td><td>${subj.ext}</td><td>${subj.internal}</td><td>${total}</td><td class="${status==='Pass'?'pass':'fail'}">${status}</td><td>${remark}</td>`;
-    tbody.appendChild(tr);
-  });
-
-  let totalGraceApplied = subjects.reduce((sum,subj)=>sum+subj.grace,0);
-  if(anyFailAfterGrace){
-    const failMessage='Fail (ग्रेस मिलने के बाद भी यदि किसी भी विषय में बैक रहती है तो किसी भी विषय में ग्रेस नहीं मिलेगा)';
-    document.getElementById("overall").innerHTML=`Overall Result: <span class="fail">${failMessage}</span>`;
-  } else {
-    if(totalGraceApplied>0){
-      document.getElementById("overall").innerHTML=`Overall Result: <span class="pass">PASS with Grace - ${totalGraceApplied}</span>`;
-    } else {
-      document.getElementById("overall").innerHTML=`Overall Result: <span class="pass">PASS</span>`;
-    }
-  }
-}
-
-function resetForm(){ location.reload(); }
-function downloadPDF(){
-  const element=document.getElementById("gradeCard");
-  const opt={ margin:0.5, filename:'GradeCard.pdf', image:{type:'jpeg',quality:0.98}, html2canvas:{scale:2}, jsPDF:{unit:'in',format:'a4',orientation:'portrait'} };
-  html2pdf().set(opt).from(element).save();
-}
-</script>
-</body>
-</html>
-</div>
-
-<!-- 📌 PG Section -->
+<!-- PG Section -->
 <div class="tab-content" id="pgTab">
- <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MSU NEP Result Calculator (with Grace)</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-<style>
-body { font-family: Arial, sans-serif; background:#f7f9fb; padding:10px; margin:0; }
-h1 { text-align:center; font-size:1.3em; margin-bottom:5px; }
-h2 { font-size:1em; margin-top:10px; margin-bottom:8px; cursor:pointer; }
-.description { text-align:center; margin-bottom:10px; font-size:0.85em; font-weight:bold; }
-.owner { text-align:center; font-size:0.8em; margin-bottom:12px; }
-.owner b { color:red; font-size:1em; }
-.owner small { font-size:0.7em; display:block; }
-.rules { border:1px solid #ccc; background:#fff; padding:8px; margin-bottom:12px; border-radius:8px; font-size:0.8em; box-shadow:0 3px 6px rgba(0,0,0,0.1); background:#fffde7; }
-.rules ul { margin:0; padding-left:18px; line-height:1.4; }
-
-
-
-/* Buttons */
-.cta, button {
-  padding: 10px 16px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #FFD95A, #FFC107); /* light yellow gradient */
-  font-weight: 600;
-  color: #333;  /* dark text for readability */
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.4); /* soft yellow shadow */
-  transition: all .3s ease;
-}
-.cta:hover, button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255, 193, 7, 0.7);
-}
-
-h1, h2, h3 {
-  color: #FFC107; /* yellow headings */
-  margin: 0;
-}
-
-.card {
-  background: #fffbea; /* very light yellow background */
-  border: 1px solid rgba(255, 193, 7, 0.4);
-  border-radius: var(--radius);
-  padding: 18px;
-  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
-}
-
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 193, 7, 0.4);
-  background: #fff;
-  color: #333;
-}
-
-/* Tabs */
-.tabs {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.tab-btn {
-  background: #fff8dc; /* light cream */
-  border: 2px solid #FFC107;
-  color: #FFC107;
-  padding: 10px 20px;
-  cursor: pointer;
-  margin: 0 5px;
-  border-radius: 8px;
-  font-weight: bold;
-}
-
-.tab-btn.active {
-  background: #FFC107;
-  color: #333; /* readable dark text */
-}
-
-.tab-content {
-  display: none;
-  padding: 20px;
-  max-width: 800px;
-  margin: auto;
-  background: #fffbea; /* soft yellow box */
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
-}
-
-.tab-content.active {
-  display: block;
-}
-
-/* ✅ 3D Card Style */
-.subject-section {
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 10px;
-  background: #fffde7;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.subject-section:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
-}
-
-.subject { margin-bottom:6px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-.subject label { min-width:110px; font-weight:bold; margin-bottom:0; font-size:0.85em; }
-.subject input[type=number] { width:40px; text-align:center; font-size:0.85em; }
-
-button { padding:6px 10px; margin:4px 4px 4px 0; cursor:pointer; background:#007BFF; color:#fff; border:none; border-radius:5px; font-size:0.8em; transition:0.3s; }
-button:hover { background:#0056b3; }
-
-table { width:100%; border-collapse: collapse; margin-top:12px; font-size:0.75em; }
-thead { background:#f0f0f0; }
-th, td { border:1px solid #ccc; padding:5px; text-align:center; }
-.pass { color:green; font-weight:bold; }
-.fail { color:red; font-weight:bold; }
-.grace { color:red; font-weight:bold; }
-.graceApplied { background:#fff0f0; } 
-#overall { font-size:1em; text-align:center; margin-top:8px; font-weight:bold; }
-#note { margin-top:12px; font-size:0.7em; text-align:center; color:#333; }
-
-/* ✅ Grade Card light yellow */
-#gradeCard {
-  background: #fffde7;
-  padding: 8px;
-  border-radius: 6px;
-  box-shadow:0 3px 6px rgba(0,0,0,0.15);
-}
-</style>
-</head>
-<body>
-
-  <header>
-      <nav style="display:flex; gap:12px;">
-        <a href="https://whatsapp.com/channel/0029Va4irjP23n3Vh4HMcx00" class="cta">WhatsApp</a>
-        <a href="https://t.me/myMSUSre" class="cta">Telegram</a>
-        <a href="https://t.me/HELPforDmbot" class="cta">Contact</a>
-      </nav>
-  
-  <main class="container">
-    <h1>MSU NEP Result Calculator (with Grace)</h1>
-    <p style="color:var(--muted)">
-      <b>Note:</b> Only for PG-NEP (M.A., M.Sc, M.Com) Students
-       </p>
-    <p style="color:#007bff">
-      <b>Note:</b> This is not an Official Website of <b>Maa Shakumbhari University, Saharanpur</b>.
-      "This is for information purposes only. Errors in result calculation are possible."
-    </p>
-
-<div class="card">
-    <div style="text-align: center; margin: 40px 0;">
-  <h2 style="font-size: 18px; font-weight: bold; color: #2c3e50;">
-    Meet Our <span style="color: #007bff;">Admin Team</span>
-  </h2>
-  <p style="font-size: 16px; color: #555;">
-    <b>Aditya Chaudhary</b> (Owner) | <b>Chetan Joshi</b> (Co-Owner) | <b>DM, PC, AP, AM, GS</b> (Admin Team)
-  </p>
-</div>
-
   <h2>PG NEP Result Calculator</h2>
-  <p><b>Note:</b> Only for PG-NEP (M.A., M.Sc, M.Com) Students</p>
- 
-
-<!-- Grace Rules -->
-<div class="rules">
-<h2>Grace Rules</h2>
-<ul>
-<li>किसी भी Student को अधिकतम 5 Marks तक Grace मिल सकता है।</li>
-<li>Grace अधिकतम 2 subjects में दिया जाएगा।</li>
-<li>1 Subject में अधिकतम 3 Marks ही दिए जायेंगे।</li>
-<li>Major Theory / Minor / Practical subjects में पास होने के लिए External न्यूनतम 25 और कुल न्यूनतम 40 होना चाहिए।</li>
-<li>Skill / Project / Co-Curricular subjects में पास होने के लिए Total न्यूनतम 40 होना चाहिए।</li>
-<li>अगर किसी भी Subject में fail रह जाते हैं तो किसी भी Subject में दिया गया Grace Cancel हो जाएगा।</li>
-</ul>
+  <div class="rules">
+    <ul>
+      <li>Max 5 grace marks</li>
+      <li>Grace in max 2 subjects</li>
+      <li>Max 3 grace per subject</li>
+      <li>Major/Minor/Practical pass = 25 External & 40 Total</li>
+      <li>Skill/Project/Co-Curricular pass = 40 Total</li>
+    </ul>
+  </div>
+  <div id="pg-subjects"></div>
+  <button onclick="addSubject('pg-subjects')">➕ Add Subject</button>
+  <button onclick="calculatePG()">📊 Calculate PG Result</button>
+  <div id="pg-result"></div>
 </div>
 
-<!-- Semester Selection -->
-<div class="subject-section">
-<h2>Select Semester</h2>
-<select id="semester" onchange="semesterChange()">
-  <option value="">--Select Semester--</option>
-  <option value="1">1st Semester</option>
-  <option value="2">2nd Semester</option>
-  <option value="3">3rd Semester</option>
-  <option value="4">4th Semester</option>
-</select>
+<div style="text-align: center; margin: 40px 0;"
+<div id="note">This result is only for information purpose. Not valid to use for admission or other activities.</div>
 </div>
 
-<!-- Marks Section -->
-<div id="marksSection" style="display:none;">
-
-  <div id="semTitle" style="text-align:center; font-weight:bold; font-size:1em; margin-bottom:8px;"></div>
-
-  <div class="subject-section">
-  <h2>Major Theory Subjects</h2>
-  <div id="majorTheorySubjects"></div>
-  <button onclick="addMajorTheory()">Add Major Theory</button>
-  </div>
-
-  <div class="subject-section">
-  <h2>Major Practical Subjects</h2>
-  <div id="majorPracticalSubjects"></div>
-  <button onclick="addMajorPractical()">Add Major Practical</button>
-  </div>
-
-  <div class="subject-section" id="minorSection">
-  <h2>Minor Subjects</h2>
-  <div id="minorSubjects"></div>
-  <button onclick="addMinor()">Add Minor Subject</button>
-  </div>
-  </div>
-
-  <div class="subject-section" id="projectSection" style="display:none;">
-  <h2>Project</h2>
-  <div id="projectSubjects"></div>
-  <button onclick="addProject()">Add Project</button>
-  </div>
-
-  <div style="text-align:center; margin-top:8px;">
-  <button onclick="calculateResult()">Calculate Result</button>
-  <button onclick="resetForm()">Reset</button>
-  <button onclick="downloadPDF()">Download Grade Card (PDF)</button>
-  </div>
-
-  <div id="gradeCard">
-  <table id="resultTable">
-  <thead>
-  <tr>
-  <th>Subject</th>
-  <th>External</th>
-  <th>Grace</th>
-  <th>External after Grace</th>
-  <th>Internal</th>
-  <th>Total</th>
-  <th>Status</th>
-  <th>Remarks</th>
-  </tr>
-  </thead>
-  <tbody></tbody>
-  </table>
-  <div id="overall"></div>
-  <div id="note">This result is only for information purpose. Not valid to use for admission or other activities</div>
-  </div>
-
+ <div style="text-align: center; margin: 40px 0;"
+ </div>
    <footer>
     © 2025 | Designed by Aditya Chaudhary💗
   </footer>
-  
-</div>
 
 <script>
-let majorTheoryCount=0, majorPracticalCount=0, minorCount=0, projectCount=0;
-const maxGrace=5, maxGraceSubjects=2, maxGracePerSubject = 3;
-for(let i=0;i<2;i++) addMajorTheory();
-
-function semesterChange(){
-  let sem=document.getElementById("semester").value;
-  let semTitle=document.getElementById("semTitle");
-  if(sem===""){ document.getElementById("marksSection").style.display="none"; return; }
-  document.getElementById("marksSection").style.display="block";
-  semTitle.innerHTML="Semester: "+sem;
-   if(sem==="1"){ document.getElementById("projectSection").style.display="block"; }
-  else { document.getElementById("projectSection").style.display="none"; }
-   if(sem==="2"){ document.getElementById("projectSection").style.display="block"; }
-  else { document.getElementById("projectSection").style.display="none"; }
-   if(sem==="3"){ document.getElementById("projectSection").style.display="block"; }
-  else { document.getElementById("projectSection").style.display="none"; }
-  if(sem==="4"){ document.getElementById("projectSection").style.display="block"; }
-  else { document.getElementById("projectSection").style.display="none"; }
+function openTab(tabId,evt){
+  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".tab-content").forEach(c=>c.classList.remove("active"));
+  evt.target.classList.add("active");
+  document.getElementById(tabId).classList.add("active");
 }
 
-function addSubject(containerId,name,extClass,intClass,label1="Ext",label2="Int"){
-  const container=document.getElementById(containerId);
-  container.style.display="block";
+function addSubject(containerId){
   const div=document.createElement("div");
   div.className="subject";
-  div.innerHTML=`<label>${name}:</label>
-  ${label1} <input type="number" class="${extClass}" min="0" max="99">`+
-  (intClass?` ${label2} <input type="number" class="${intClass}" min="0" max="99">`:"");
-  container.appendChild(div);
+  div.innerHTML=`Name:<input type="text" placeholder="Subject">
+                 Ext:<input type="number" min="0" max="75">
+                 Int:<input type="number" min="0" max="25">
+                 Type:<select>
+                   <option value="theory">Theory</option>
+                   <option value="practical">Practical</option>
+                   <option value="project">Project</option>
+                   <option value="skill development">Skill Development</option>
+                   <option value="cocurricular">Co-Curricular</option>
+                 </select>`;
+  document.getElementById(containerId).appendChild(div);
 }
-function addMajorTheory(){ majorTheoryCount++; addSubject("majorTheorySubjects","Major Theory "+majorTheoryCount,"majorTheoryExternal","majorTheoryInternal"); }
-function addMajorPractical(){ majorPracticalCount++; addSubject("majorPracticalSubjects","Major Practical "+majorPracticalCount,"majorPracticalExternal","majorPracticalInternal"); }
-function addMinor(){ minorCount++; addSubject("minorSubjects","Minor "+minorCount,"minorExternal","minorInternal"); }
-function addProject(){ projectCount++; addSubject("projectSubjects","Project "+projectCount,"projectMarks",null,"Total",""); }
 
-function calculateResult(){
-  const majors=document.querySelectorAll(".majorTheoryExternal");
-  const majorInternals=document.querySelectorAll(".majorTheoryInternal");
-  const coExt=document.querySelector(".coExternal").value;
-  const coInt=document.querySelector(".coInternal").value;
-  let mandatoryOk=true;
-  if(majors.length<3){ mandatoryOk=false; }
-  else { for(let i=0;i<3;i++){ if((majors[i].value==="" || majorInternals[i].value==="")) mandatoryOk=false; } }
-  if(coExt==="" || coInt==="") mandatoryOk=false;
-  if(!mandatoryOk){ alert("Plz Enter Marks of All Subjects"); return; }
+function printGradeCard(id){
+  let content=document.getElementById(id).innerHTML;
+  let win=window.open("","Print","height=600,width=800");
+  win.document.write("<html><head><title>Grade Card</title></head><body>");
+  win.document.write("<h2 style='text-align:center'>Grade Card</h2>");
+  win.document.write(content);
+  win.document.write("</body></html>");
+  win.document.close();
+  win.print();
+}
 
-  const tbody=document.querySelector("#resultTable tbody"); tbody.innerHTML="";
-  let graceLeft=maxGrace, remainingGraceSubjects=maxGraceSubjects;
-  let subjects=[];
-  [
-    ["majorTheoryExternal","majorTheoryInternal","majorTheory","Major Theory"],
-    ["majorPracticalExternal","majorPracticalInternal","majorPractical","Major Practical"],
-    ["minorExternal","minorInternal","minor","Minor"],
-    ["projectMarks",null,"project","Project"]
-  ].forEach(([extClass,intClass,type,displayName])=>{
-    const extInputs=document.querySelectorAll("."+extClass);
-    const intInputs=intClass?document.querySelectorAll("."+intClass):[];
-    extInputs.forEach((el,i)=>{
-      const ext=Number(el.value)||0;
-      const intr=intClass?Number(intInputs[i].value)||0:0;
-      if(ext!==0 || intr!==0){ subjects.push({name:`${displayName} ${i+1}`,ext,internal:intr,type,grace:0, initialPass:false}); }
-    });
-  });
-  const coE=Number(document.querySelector(".coExternal").value)||0;
-  const coI=Number(document.querySelector(".coInternal").value)||0;
-  if(coE || coI) subjects.push({name:"Co-Curricular",ext:coE,internal:coI,type:"coCurricular",grace:0,initialPass:false});
+// ===== UG Logic =====
+function calculateUG(){
+  const subs=document.querySelectorAll("#ug-subjects .subject");
+  let totalGrace=0, subjectsUsed=0, resultHTML="", overallPass=true;
 
-  function checkPass(subj,extTotal){
-    const total=subj.internal+extTotal;
-    if(subj.type==="majorTheory"||subj.type==="minor"||subj.type==="majorPractical") return (extTotal>=25 && total>=40);
-    if(ssubj.type==="project") return total>=40;
-    return false;
-  }
-  subjects.forEach(subj=>{ subj.initialPass = checkPass(subj,subj.ext); });
-  subjects.forEach(subj=>{
-    if(graceLeft<=0 || remainingGraceSubjects<=0) return;
-    let total=subj.ext+subj.internal; let needGrace=0;
-    if(subj.type==="majorTheory"||subj.type==="minor"||subj.type==="majorPractical"){
-      if(subj.ext<25){ needGrace=25-subj.ext; }
-      if(needGrace===0 && total<40 && subj.ext>=25){ needGrace=40-total; }
-    } else if(subj.type==="project"){ if(total<40){ needGrace=40-total; } }
-    if(needGrace>0){ const applied=Math.min(needGrace,graceLeft,maxGrace); subj.ext+=applied; subj.grace+=applied; graceLeft-=applied; remainingGraceSubjects--; }
-  });
+  subs.forEach(s=>{
+    const name=s.querySelector("input[type=text]").value||"Subject";
+    let ext=parseInt(s.querySelectorAll("input")[1].value)||0;
+    let inte=parseInt(s.querySelectorAll("input")[2].value)||0;
+    const type=s.querySelector("select").value;
 
-  let anyFailAfterGrace=false; subjects.forEach(subj=>{ if(!checkPass(subj,subj.ext)) anyFailAfterGrace=true; });
-  subjects.forEach(subj=>{
-    const total=subj.ext+subj.internal;
-    let status=checkPass(subj,subj.ext)?"Pass":"Fail";
-    if(subj.initialPass && subj.grace===0) status="Pass";
-    if(anyFailAfterGrace && !subj.initialPass && subj.grace>0) status="Fail";
-    let remark="";
-    if(status==="Fail"){
-      if(subj.type==="majorTheory"||subj.type==="minor"||subj.type==="majorPractical"){
-        if(subj.ext<25) remark=`Need ${25-(subj.ext)} more marks in External`;
-        else if(total<40) remark=`Need ${40-total} more marks in Total`;
-      } else { remark=`Need ${40-total} more marks in Total`; }
-    } else { remark="OK"; }
+    let total=ext+inte, passed=false, graceGiven=0;
 
-    if(anyFailAfterGrace && subj.grace>0){
-      remark = `Grace Mark(s) Cancelled - ${remark}`;
+    if(type==="theory"||type==="practical"){
+      if(ext>=25 && total>=33) passed=true;
+      else{
+        let needExt=25-ext, needTot=33-total;
+        let need=Math.max(needExt,needTot);
+        if(need<=5 && subjectsUsed<2 && totalGrace+need<=5){
+          ext+=need; total+=need; graceGiven=need;
+          totalGrace+=need; subjectsUsed++;
+          if(ext>=25 && total>=33) passed=true;
+        }
+      }
+    }else{
+      if(total>=40) passed=true;
     }
 
-    const tr=document.createElement("tr");
-    tr.className=subj.grace>0?"graceApplied":"";
-    tr.innerHTML=`<td>${subj.name}</td><td>${subj.ext-subj.grace}</td><td class="grace">${subj.grace}</td><td>${subj.ext}</td><td>${subj.internal}</td><td>${total}</td><td class="${status==='Pass'?'pass':'fail'}">${status}</td><td>${remark}</td>`;
-    tbody.appendChild(tr);
+    resultHTML+=`<p>${name}: Ext=${ext}, Int=${inte}, Total=${total} → ${passed?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"} ${graceGiven>0?"<span class='grace'>(Grace +"+graceGiven+")</span>":""}</p>`;
+    if(!passed) overallPass=false;
   });
 
-  let totalGraceApplied = subjects.reduce((sum,subj)=>sum+subj.grace,0);
-  if(anyFailAfterGrace){
-    const failMessage='Fail (ग्रेस मिलने के बाद भी यदि किसी भी विषय में बैक रहती है तो किसी भी विषय में ग्रेस नहीं मिलेगा)';
-    document.getElementById("overall").innerHTML=`Overall Result: <span class="fail">${failMessage}</span>`;
-  } else {
-    if(totalGraceApplied>0){
-      document.getElementById("overall").innerHTML=`Overall Result: <span class="pass">PASS with Grace - ${totalGraceApplied}</span>`;
-    } else {
-      document.getElementById("overall").innerHTML=`Overall Result: <span class="pass">PASS</span>`;
+  resultHTML=`<div id="gradeCardUG">`+resultHTML+`<h3>Final Result: ${overallPass?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"}</h3></div>`;
+  resultHTML+=`<button class="print-btn" onclick="printGradeCard('gradeCardUG')">🖨️ Print Grade Card</button>`;
+  document.getElementById("ug-result").innerHTML=resultHTML;
+}
+
+// ===== PG Logic =====
+function calculatePG(){
+  const subs=document.querySelectorAll("#pg-subjects .subject");
+  let totalGrace=0, subjectsUsed=0, resultHTML="", overallPass=true;
+
+  subs.forEach(s=>{
+    const name=s.querySelector("input[type=text]").value||"Subject";
+    let ext=parseInt(s.querySelectorAll("input")[1].value)||0;
+    let inte=parseInt(s.querySelectorAll("input")[2].value)||0;
+    const type=s.querySelector("select").value;
+
+    let total=ext+inte, passed=false, graceGiven=0;
+
+    if(type==="theory"||type==="practical"){
+      if(ext>=25 && total>=40) passed=true;
+      else{
+        let needExt=25-ext, needTot=40-total;
+        let need=Math.max(needExt,needTot);
+        if(need<=3 && totalGrace+need<=5 && subjectsUsed<2){
+          ext+=need; total+=need; graceGiven=need;
+          totalGrace+=need; subjectsUsed++;
+          if(ext>=25 && total>=40) passed=true;
+        }
+      }
+    }else{
+      if(total>=40) passed=true;
     }
-  }
-}
 
-function resetForm(){ location.reload(); }
-function downloadPDF(){
-  const element=document.getElementById("gradeCard");
-  const opt={ margin:0.5, filename:'GradeCard.pdf', image:{type:'jpeg',quality:0.98}, html2canvas:{scale:2}, jsPDF:{unit:'in',format:'a4',orientation:'portrait'} };
-  html2pdf().set(opt).from(element).save();
-}
-</script>
-</body>
-</html>
+    resultHTML+=`<p>${name}: Ext=${ext}, Int=${inte}, Total=${total} → ${passed?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"} ${graceGiven>0?"<span class='grace'>(Grace +"+graceGiven+")</span>":""}</p>`;
+    if(!passed) overallPass=false;
+  });
 
-</div>
-
-<script>
-function openTab(tabId) {
-  document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
-  document.querySelectorAll(".tab-content").forEach(tab => tab.classList.remove("active"));
-  event.target.classList.add("active");
-  document.getElementById(tabId).classList.add("active");
+  resultHTML=`<div id="gradeCardPG">`+resultHTML+`<h3>Final Result: ${overallPass?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"}</h3></div>`;
+  resultHTML+=`<button class="print-btn" onclick="printGradeCard('gradeCardPG')">🖨️ Print Grade Card</button>`;
+  document.getElementById("pg-result").innerHTML=resultHTML;
 }
 </script>
 
