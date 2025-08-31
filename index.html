@@ -99,6 +99,11 @@ body { font-family: Arial, sans-serif; background:#fffde7; margin:0; padding:10p
     <div id="note">This result is only for information purpose. Not valid for admission or official use.</div>
   </div>
 
+  <!-- Whole Page Print Button -->
+  <div style="text-align:center; margin:20px 0;">
+    <button class="print-btn" onclick="window.print()">🖨️ Print</button>
+  </div>
+
 </main>
 
 <footer style="text-align:center; margin:20px 0;">
@@ -147,17 +152,6 @@ function addSubjectPG(){
   document.getElementById("pg-subjects").appendChild(div);
 }
 
-function printGradeCard(id){
-  let content=document.getElementById(id).innerHTML;
-  let win=window.open("","Print","height=600,width=800");
-  win.document.write("<html><head><title>Grade Card</title></head><body>");
-  win.document.write("<h2 style='text-align:center'>Grade Card</h2>");
-  win.document.write(content);
-  win.document.write("</body></html>");
-  win.document.close();
-  win.print();
-}
-
 // ===== UG Logic =====
 function calculateUG(){
   const subs=document.querySelectorAll("#ug-subjects .subject");
@@ -193,7 +187,6 @@ function calculateUG(){
 
   resultHTML=`<div id="gradeCardUG">`+resultHTML+`<h3>Final Result: 
   ${overallPass?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"}</h3></div>`;
-  resultHTML+=`<button class="print-btn" onclick="printGradeCard('gradeCardUG')">🖨️ Print Grade Card</button>`;
   document.getElementById("ug-result").innerHTML=resultHTML;
 }
 
@@ -232,7 +225,6 @@ function calculatePG(){
 
   resultHTML=`<div id="gradeCardPG">`+resultHTML+`<h3>Final Result: 
   ${overallPass?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"}</h3></div>`;
-  resultHTML+=`<button class="print-btn" onclick="printGradeCard('gradeCardPG')">🖨️ Print Grade Card</button>`;
   document.getElementById("pg-result").innerHTML=resultHTML;
 }
 </script>
