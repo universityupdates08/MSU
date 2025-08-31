@@ -14,10 +14,11 @@ body { font-family: Arial, sans-serif; background:#fffde7; margin:0; padding:10p
 .cta, button { padding:8px 16px; border:none; border-radius:8px; background:linear-gradient(135deg,#FFD95A,#FFC107); font-weight:600; cursor:pointer; transition:.3s; }
 .cta:hover, button:hover { transform:scale(1.05); box-shadow:0 0 12px rgba(255,193,7,0.6); }
 .rules { background:#fffde7; padding:10px; border:1px solid #ccc; margin:10px 0; border-radius:8px; }
-.subject-section { margin:10px 0; padding:10px; background:#fffde7; border-radius:8px; }
 .subject { display:flex; gap:6px; margin:4px 0; }
 .subject input { width:50px; }
-.pass{color:green;font-weight:bold;} .fail{color:red;font-weight:bold;} .grace{color:red;} .graceApplied{background:#fff0f0;}
+.pass{color:green;font-weight:bold;} 
+.fail{color:red;font-weight:bold;} 
+.grace{color:red;} 
 .print-btn { margin-top:10px; background:#28a745; color:#fff; }
 .print-btn:hover { background:#218838; }
 </style>
@@ -25,8 +26,9 @@ body { font-family: Arial, sans-serif; background:#fffde7; margin:0; padding:10p
 <body>
 
 <h1 style="text-align:center">MSU NEP Result Calculator (with Grace)</h1>
+
 <header>
-  <nav style="text-align:center""display:flex; gap:12px;">
+  <nav style="text-align:center; display:flex; justify-content:center; gap:12px;">
     <a href="https://whatsapp.com/channel/0029Va4irjP23n3Vh4HMcx00" class="cta">WhatsApp</a>
     <a href="https://t.me/myMSUSre" class="cta">Telegram</a>
     <a href="https://t.me/HELPforDmbot" class="cta">Contact</a>
@@ -34,73 +36,74 @@ body { font-family: Arial, sans-serif; background:#fffde7; margin:0; padding:10p
 </header>
 
 <main class="container">
-  <p style="color:#007bff">
-    <div style="text-align: center; margin: 40px 0;">
-    <b>Note:</b> This is not an Official Website of <b>Maa Shakumbhari University, Saharanpur</b>.
+  <div style="text-align: center; margin: 20px 0; color:#007bff;">
+    <b>Note:</b> This is not an Official Website of <b>Maa Shakumbhari University, Saharanpur</b>.  
     "This is for information purposes only. Errors in result calculation are possible."
-  </p>
-</div>
+  </div>
       
-  <div class="card">
-    <div style="text-align: center; margin: 40px 0;">
-  <h2 style="font-size: 18px; font-weight: bold; color: #2c3e50;">
-    Meet Our <span style="color: #007bff;">Admin Team</span>
-  </h2>
-  <p style="font-size: 16px; color: #555;">
-    <b>Aditya Chaudhary</b> (Owner) | <b>Chetan Joshi</b> (Co-Owner) | <b>DM, PC, AP, AM, GS</b> (Admin Team)
-  </p>
-</div>
-
-<!-- Tabs -->
-<div class="tabs">
-  <button class="tab-btn active" onclick="openTab('ugTab',event)">UG (B.A./B.Sc./B.Com)</button>
-  <button class="tab-btn" onclick="openTab('pgTab',event)">PG (M.A./M.Sc./M.Com)</button>
-</div>
-
-<!-- UG Section -->
-<div class="tab-content active" id="ugTab">
-  <h2>UG NEP Result Calculator</h2>
-  <div class="rules">
-    <ul>
-      <li>Max 5 grace marks</li>
-      <li>Grace in max 2 subjects</li>
-      <li>Major/Minor/Practical pass = 25 External & 33 Total</li>
-      <li>Skill/Project/Co-Curricular pass = 40 Total</li>
-    </ul>
+  <div style="text-align: center; margin: 20px 0;">
+    <h2 style="font-size: 18px; font-weight: bold; color: #2c3e50;">
+      Meet Our <span style="color: #007bff;">Admin Team</span>
+    </h2>
+    <p style="font-size: 16px; color: #555;">
+      <b>Aditya Chaudhary</b> (Owner) | <b>Chetan Joshi</b> (Co-Owner) | <b>DM, PC, AP, AM, GS</b> (Admin Team)
+    </p>
   </div>
-  <div id="ug-subjects"></div>
-  <button onclick="addSubject('ug-subjects')">➕ Add Subject</button>
-  <button onclick="calculateUG()">📊 Calculate UG Result</button>
-  <div id="ug-result"></div>
-</div>
 
-<!-- PG Section -->
-<div class="tab-content" id="pgTab">
-  <h2>PG NEP Result Calculator</h2>
-  <div class="rules">
-    <ul>
-      <li>Max 5 grace marks</li>
-      <li>Grace in max 2 subjects</li>
-      <li>Max 3 grace per subject</li>
-      <li>Major/Minor/Practical pass = 25 External & 40 Total</li>
-      <li>Skill/Project/Co-Curricular pass = 40 Total</li>
-    </ul>
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab('ugTab',event)">UG (B.A./B.Sc./B.Com)</button>
+    <button class="tab-btn" onclick="openTab('pgTab',event)">PG (M.A./M.Sc./M.Com)</button>
   </div>
-  <div id="pg-subjects"></div>
-  <button onclick="addSubject('pg-subjects')">➕ Add Subject</button>
-  <button onclick="calculatePG()">📊 Calculate PG Result</button>
-  <div id="pg-result"></div>
-</div>
 
-<div style="text-align: center; margin: 40px 0;"
-<div id="note">This result is only for information purpose. Not valid to use for admission or other activities.</div>
-</div>
+  <!-- UG Section -->
+  <div class="tab-content active" id="ugTab">
+    <h2>UG NEP Result Calculator</h2>
+    <div class="rules">
+      <ul>
+        <li>Max 5 grace marks</li>
+        <li>Grace in max 2 subjects</li>
+        <li>Grace Marks will be given in <b>External Theory & Co-Curricular</b> only</li>
+        <li>No Grace in Practical/Skill Development/Viva/Project</li>
+        <li>Passing: Major/Minor = 25 External & 33 Total</li>
+        <li>Passing: Skill/Project/Co-Curricular = 40 Total</li>
+      </ul>
+    </div>
+    <div id="ug-subjects"></div>
+    <button onclick="addSubjectUG()">➕ Add Subject</button>
+    <button onclick="calculateUG()">📊 Calculate UG Result</button>
+    <div id="ug-result"></div>
+  </div>
 
- <div style="text-align: center; margin: 40px 0;"
- </div>
-   <footer>
-    © 2025 | Designed by Aditya Chaudhary💗
-  </footer>
+  <!-- PG Section -->
+  <div class="tab-content" id="pgTab">
+    <h2>PG NEP Result Calculator</h2>
+    <div class="rules">
+      <ul>
+        <li>Max 5 grace marks</li>
+        <li>Grace in max 2 subjects</li>
+        <li>Max 3 grace per subject</li>
+        <li>Grace Marks will be given in <b>External Theory</b> only</li>
+        <li>No Grace in Practical/Viva/Project</li>
+        <li>Passing: Major/Minor = 25 External & 40 Total</li>
+        <li>Passing: Project = 40 Total</li>
+      </ul>
+    </div>
+    <div id="pg-subjects"></div>
+    <button onclick="addSubjectPG()">➕ Add Subject</button>
+    <button onclick="calculatePG()">📊 Calculate PG Result</button>
+    <div id="pg-result"></div>
+  </div>
+
+  <div style="text-align:center; margin:20px 0;">
+    <div id="note">This result is only for information purpose. Not valid for admission or official use.</div>
+  </div>
+
+</main>
+
+<footer style="text-align:center; margin:20px 0;">
+  © 2025 | Designed by Aditya Chaudhary💗
+</footer>
 
 <script>
 function openTab(tabId,evt){
@@ -110,7 +113,8 @@ function openTab(tabId,evt){
   document.getElementById(tabId).classList.add("active");
 }
 
-function addSubject(containerId){
+// UG subjects (with Co-curricular & Skill Dev allowed)
+function addSubjectUG(){
   const div=document.createElement("div");
   div.className="subject";
   div.innerHTML=`Name:<input type="text" placeholder="Subject">
@@ -120,10 +124,27 @@ function addSubject(containerId){
                    <option value="theory">Theory</option>
                    <option value="practical">Practical</option>
                    <option value="project">Project</option>
-                   <option value="skill development">Skill Development</option>
+                   <option value="skill">Skill Development</option>
                    <option value="cocurricular">Co-Curricular</option>
-                 </select>`;
-  document.getElementById(containerId).appendChild(div);
+                 </select>
+                 <button onclick="this.parentElement.remove()" style="background:#dc3545;color:white;">X</button>`;
+  document.getElementById("ug-subjects").appendChild(div);
+}
+
+// PG subjects (no Skill Dev, no Co-curricular)
+function addSubjectPG(){
+  const div=document.createElement("div");
+  div.className="subject";
+  div.innerHTML=`Name:<input type="text" placeholder="Subject">
+                 Ext:<input type="number" min="0" max="75">
+                 Int:<input type="number" min="0" max="25">
+                 Type:<select>
+                   <option value="theory">Theory</option>
+                   <option value="practical">Practical</option>
+                   <option value="project">Project</option>
+                 </select>
+                 <button onclick="this.parentElement.remove()" style="background:#dc3545;color:white;">X</button>`;
+  document.getElementById("pg-subjects").appendChild(div);
 }
 
 function printGradeCard(id){
@@ -150,11 +171,10 @@ function calculateUG(){
 
     let total=ext+inte, passed=false, graceGiven=0;
 
-    if(type==="theory"||type==="practical"){
+    if(type==="theory" || type==="cocurricular"){
       if(ext>=25 && total>=33) passed=true;
       else{
-        let needExt=25-ext, needTot=33-total;
-        let need=Math.max(needExt,needTot);
+        let need=Math.max(25-ext, 33-total);
         if(need<=5 && subjectsUsed<2 && totalGrace+need<=5){
           ext+=need; total+=need; graceGiven=need;
           totalGrace+=need; subjectsUsed++;
@@ -165,11 +185,14 @@ function calculateUG(){
       if(total>=40) passed=true;
     }
 
-    resultHTML+=`<p>${name}: Ext=${ext}, Int=${inte}, Total=${total} → ${passed?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"} ${graceGiven>0?"<span class='grace'>(Grace +"+graceGiven+")</span>":""}</p>`;
+    resultHTML+=`<p>${name}: Ext=${ext}, Int=${inte}, Total=${total} → 
+    ${passed?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"} 
+    ${graceGiven>0?"<span class='grace'>(Grace +"+graceGiven+")</span>":""}</p>`;
     if(!passed) overallPass=false;
   });
 
-  resultHTML=`<div id="gradeCardUG">`+resultHTML+`<h3>Final Result: ${overallPass?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"}</h3></div>`;
+  resultHTML=`<div id="gradeCardUG">`+resultHTML+`<h3>Final Result: 
+  ${overallPass?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"}</h3></div>`;
   resultHTML+=`<button class="print-btn" onclick="printGradeCard('gradeCardUG')">🖨️ Print Grade Card</button>`;
   document.getElementById("ug-result").innerHTML=resultHTML;
 }
@@ -187,11 +210,10 @@ function calculatePG(){
 
     let total=ext+inte, passed=false, graceGiven=0;
 
-    if(type==="theory"||type==="practical"){
+    if(type==="theory"){
       if(ext>=25 && total>=40) passed=true;
       else{
-        let needExt=25-ext, needTot=40-total;
-        let need=Math.max(needExt,needTot);
+        let need=Math.max(25-ext, 40-total);
         if(need<=3 && totalGrace+need<=5 && subjectsUsed<2){
           ext+=need; total+=need; graceGiven=need;
           totalGrace+=need; subjectsUsed++;
@@ -202,11 +224,14 @@ function calculatePG(){
       if(total>=40) passed=true;
     }
 
-    resultHTML+=`<p>${name}: Ext=${ext}, Int=${inte}, Total=${total} → ${passed?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"} ${graceGiven>0?"<span class='grace'>(Grace +"+graceGiven+")</span>":""}</p>`;
+    resultHTML+=`<p>${name}: Ext=${ext}, Int=${inte}, Total=${total} → 
+    ${passed?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"} 
+    ${graceGiven>0?"<span class='grace'>(Grace +"+graceGiven+")</span>":""}</p>`;
     if(!passed) overallPass=false;
   });
 
-  resultHTML=`<div id="gradeCardPG">`+resultHTML+`<h3>Final Result: ${overallPass?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"}</h3></div>`;
+  resultHTML=`<div id="gradeCardPG">`+resultHTML+`<h3>Final Result: 
+  ${overallPass?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"}</h3></div>`;
   resultHTML+=`<button class="print-btn" onclick="printGradeCard('gradeCardPG')">🖨️ Print Grade Card</button>`;
   document.getElementById("pg-result").innerHTML=resultHTML;
 }
