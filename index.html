@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -19,6 +19,7 @@ body { font-family: Arial, sans-serif; background:#fffde7; margin:0; padding:10p
 .pass{color:green;font-weight:bold;} 
 .fail{color:red;font-weight:bold;} 
 .grace{color:red;} 
+.remark{color:#555; font-style:italic; margin-left:8px;}
 .print-btn { margin-top:10px; background:#28a745; color:#fff; }
 .print-btn:hover { background:#218838; }
 </style>
@@ -111,6 +112,7 @@ body { font-family: Arial, sans-serif; background:#fffde7; margin:0; padding:10p
 </footer>
 
 <script>
+// === TAB SWITCH ===
 function openTab(tabId,evt){
   document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
   document.querySelectorAll(".tab-content").forEach(c=>c.classList.remove("active"));
@@ -118,7 +120,7 @@ function openTab(tabId,evt){
   document.getElementById(tabId).classList.add("active");
 }
 
-// UG subjects (with Co-curricular & Skill Dev allowed)
+// === ADD SUBJECTS ===
 function addSubjectUG(){
   const div=document.createElement("div");
   div.className="subject";
@@ -135,8 +137,6 @@ function addSubjectUG(){
                  <button onclick="this.parentElement.remove()" style="background:#dc3545;color:white;">X</button>`;
   document.getElementById("ug-subjects").appendChild(div);
 }
-
-// PG subjects (no Skill Dev, no Co-curricular)
 function addSubjectPG(){
   const div=document.createElement("div");
   div.className="subject";
@@ -152,48 +152,47 @@ function addSubjectPG(){
   document.getElementById("pg-subjects").appendChild(div);
 }
 
-// ===== UG Logic =====
-function calculateUG(){
-  const subs=document.querySelectorAll("#ug-subjects .subject");
-  let totalGrace=0, subjectsUsed=0, resultHTML="", overallPass=true;
+// === COMMON RENDER FUNCTION ===
+function renderResult(containerId, subjects, overallPass, passCount, failCount, totalGrace, subjectsUsed){
+  if(subjects.length===0){
+    document.getElementById(containerId).innerHTML=
+      `<p style="color:red; font-weight:bold;">⚠ Please add at least one subject to calculate result.</p>`;
+    return;
+  }
 
-  subs.forEach(s=>{
-    const name=s.querySelector("input[type=text]").value||"Subject";
-    let ext=parseInt(s.querySelectorAll("input")[1].value)||0;
-    let inte=parseInt(s.querySelectorAll("input")[2].value)||0;
-    const type=s.querySelector("select").value;
-
-    let total=ext+inte, passed=false, graceGiven=0;
-
-    if(type==="theory" || type==="cocurricular"){
-      if(ext>=25 && total>=33) passed=true;
-      else{
-        let need=Math.max(25-ext, 33-total);
-        if(need<=5 && subjectsUsed<2 && totalGrace+need<=5){
-          ext+=need; total+=need; graceGiven=need;
-          totalGrace+=need; subjectsUsed++;
-          if(ext>=25 && total>=33) passed=true;
-        }
-      }
-    }else{
-      if(total>=40) passed=true;
-    }
-
-    resultHTML+=`<p>${name}: Ext=${ext}, Int=${inte}, Total=${total} → 
-    ${passed?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"} 
-    ${graceGiven>0?"<span class='grace'>(Grace +"+graceGiven+")</span>":""}</p>`;
-    if(!passed) overallPass=false;
+  let resultHTML = `<table border="1" style="margin-top:10px; border-collapse:collapse; width:100%; text-align:center;">
+    <tr><th>Subject</th><th>External</th><th>Grace</th><th>External after Grace</th>
+    <th>Internal</th><th>Total</th><th>Status</th><th>Remarks</th></tr>`;
+  subjects.forEach(s=>{
+    resultHTML+=`
+      <tr>
+        <td>${s.name}</td><td>${s.originalExt}</td><td>${s.graceGiven>0?s.graceGiven:"-"}</td>
+        <td>${s.ext}</td><td>${s.inte}</td><td>${s.total}</td>
+        <td>${s.passed?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"}</td>
+        <td style="color:${s.remarks.includes("Cancelled")||s.remarks.includes("Fail")?"red":"green"};">
+          ${s.remarks}
+        </td>
+      </tr>`;
   });
-
-  resultHTML=`<div id="gradeCardUG">`+resultHTML+`<h3>Final Result: 
-  ${overallPass?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"}</h3></div>`;
-  document.getElementById("ug-result").innerHTML=resultHTML;
+  resultHTML+=`<tr style="font-weight:bold; background:#f5f5f5;">
+      <td colspan="8">Final Result: ${overallPass?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"} |
+      Total Subjects: ${subjects.length}, Passed: ${passCount}, Failed: ${failCount},
+      Grace Used: ${totalGrace} (in ${subjectsUsed} subject${subjectsUsed!==1?"s":""})</td>
+    </tr></table>`;
+  document.getElementById(containerId).innerHTML=resultHTML;
 }
 
-// ===== PG Logic =====
-function calculatePG(){
-  const subs=document.querySelectorAll("#pg-subjects .subject");
-  let totalGrace=0, subjectsUsed=0, resultHTML="", overallPass=true;
+// === UG LOGIC ===
+function calculateUG(){
+  const subs=document.querySelectorAll("#ug-subjects .subject");
+  if(subs.length===0){
+    document.getElementById("ug-result").innerHTML=
+      `<p style="color:red; font-weight:bold;">⚠ Please add at least one subject to calculate result.</p>`;
+    return;
+  }
+
+  let subjectsData=[];
+  let totalGrace=0, subjectsUsed=0, passCount=0, failCount=0;
 
   subs.forEach(s=>{
     const name=s.querySelector("input[type=text]").value||"Subject";
@@ -201,31 +200,109 @@ function calculatePG(){
     let inte=parseInt(s.querySelectorAll("input")[2].value)||0;
     const type=s.querySelector("select").value;
 
-    let total=ext+inte, passed=false, graceGiven=0;
+    let total=ext+inte, passed=false, graceGiven=0, remarks="", originalExt=ext;
+    let need=0;
 
     if(type==="theory"){
-      if(ext>=25 && total>=40) passed=true;
-      else{
-        let need=Math.max(25-ext, 40-total);
-        if(need<=3 && totalGrace+need<=5 && subjectsUsed<2){
-          ext+=need; total+=need; graceGiven=need;
-          totalGrace+=need; subjectsUsed++;
-          if(ext>=25 && total>=40) passed=true;
-        }
+      if(ext>=25 && total>=33){ passed=true; passCount++; }
+      else {
+        need=Math.max(25-ext,33-total);
+        if(need>0 && need<=5){ ext+=need; total+=need; graceGiven=need; }
       }
-    }else{
-      if(total>=40) passed=true;
+      if(!passed) remarks=`Fail: Need ${need} more marks in External/Total`;
+    } else if(type==="cocurricular"){
+      if(total>=40){ passed=true; passCount++; }
+      else {
+        need=40-total;
+        if(need>0 && need<=5){ ext+=need; total+=need; graceGiven=need; }
+      }
+      if(!passed) remarks=`Fail: Need ${need} more marks in External/Total`;
+    } else { // practical/project/skill
+      if(total>=40){ passed=true; passCount++; }
+      else { remarks="Fail: Total <40"; }
     }
 
-    resultHTML+=`<p>${name}: Ext=${ext}, Int=${inte}, Total=${total} → 
-    ${passed?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"} 
-    ${graceGiven>0?"<span class='grace'>(Grace +"+graceGiven+")</span>":""}</p>`;
-    if(!passed) overallPass=false;
+    if(graceGiven>0){ totalGrace+=graceGiven; subjectsUsed++; if(ext>=25 && total>=33 && type!=="cocurricular") passed=true; if(type==="cocurricular" && total>=40) passed=true; if(passed) passCount++; }
+    if(!passed) failCount++;
+
+    subjectsData.push({name,ext,inte,total,passed,graceGiven,remarks,originalExt});
   });
 
-  resultHTML=`<div id="gradeCardPG">`+resultHTML+`<h3>Final Result: 
-  ${overallPass?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"}</h3></div>`;
-  document.getElementById("pg-result").innerHTML=resultHTML;
+  // Grace rule check: cancel if >5 total or >2 subjects
+  if(totalGrace>5 || subjectsUsed>2){
+    subjectsData.forEach(sd=>{
+      if(sd.graceGiven>0){
+        sd.ext=sd.originalExt;
+        sd.total=sd.originalExt+sd.inte;
+        sd.passed=false;
+        sd.remarks=`Grace Cancelled (Not Eligible). Need ${Math.max(25-sd.originalExt,33-sd.total)} more marks in External`;
+        sd.graceGiven="-";
+      }
+    });
+    passCount=subjectsData.filter(s=>s.passed).length;
+    failCount=subjectsData.length-passCount;
+    totalGrace=0; subjectsUsed=0;
+  }
+
+  renderResult("ug-result",subjectsData,failCount===0,passCount,failCount,totalGrace,subjectsUsed);
+}
+
+// === PG LOGIC ===
+function calculatePG(){
+  const subs=document.querySelectorAll("#pg-subjects .subject");
+  if(subs.length===0){
+    document.getElementById("pg-result").innerHTML=
+      `<p style="color:red; font-weight:bold;">⚠ Please add at least one subject to calculate result.</p>`;
+    return;
+  }
+
+  let subjectsData=[];
+  let totalGrace=0, subjectsUsed=0, passCount=0, failCount=0;
+
+  subs.forEach(s=>{
+    const name=s.querySelector("input[type=text]").value||"Subject";
+    let ext=parseInt(s.querySelectorAll("input")[1].value)||0;
+    let inte=parseInt(s.querySelectorAll("input")[2].value)||0;
+    const type=s.querySelector("select").value;
+
+    let total=ext+inte, passed=false, graceGiven=0, remarks="", originalExt=ext;
+    let need=0;
+
+    if(type==="theory"){
+      if(ext>=25 && total>=40){ passed=true; passCount++; }
+      else {
+        need=Math.max(25-ext,40-total);
+        if(need>0 && need<=3){ ext+=need; total+=need; graceGiven=need; }
+      }
+      if(!passed) remarks=`Fail: Need ${need} more marks in External/Total`;
+    } else { // practical/project
+      if(total>=40){ passed=true; passCount++; }
+      else { remarks="Fail: Total <40"; }
+    }
+
+    if(graceGiven>0){ totalGrace+=graceGiven; subjectsUsed++; if(ext>=25 && total>=40) passed=true; if(passed) passCount++; }
+    if(!passed) failCount++;
+
+    subjectsData.push({name,ext,inte,total,passed,graceGiven,remarks,originalExt});
+  });
+
+  // Grace rule check: cancel if >5 total or >2 subjects
+  if(totalGrace>5 || subjectsUsed>2){
+    subjectsData.forEach(sd=>{
+      if(sd.graceGiven>0){
+        sd.ext=sd.originalExt;
+        sd.total=sd.originalExt+sd.inte;
+        sd.passed=false;
+        sd.remarks=`Grace Cancelled (Not Eligible). Need ${Math.max(25-sd.originalExt,40-sd.total)} more marks in External`;
+        sd.graceGiven="-";
+      }
+    });
+    passCount=subjectsData.filter(s=>s.passed).length;
+    failCount=subjectsData.length-passCount;
+    totalGrace=0; subjectsUsed=0;
+  }
+
+  renderResult("pg-result",subjectsData,failCount===0,passCount,failCount,totalGrace,subjectsUsed);
 }
 </script>
 
