@@ -9,14 +9,14 @@
 header {
   text-align: center;
   padding: 15px;
-  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  background: linear-gradient(135deg, #ffffff, #ffffff);
   color: white;
   box-shadow: 0 6px 16px rgba(0,0,0,0.35);
   border-radius: 0 0 20px 20px;
 }
 header img {
   height: 60px;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.4));
 }
 header h1 {
@@ -105,19 +105,41 @@ body {
 </head>
 <body>
 
-<header>
-  <img src="https://i.ibb.co/nMC0877T/UNIVERSITY-UPDATES-LOGO-removebg-preview.png" alt="Calculator Logo">
+<header> 
+<img src="https://i.ibb.co/nMC0877T/UNIVERSITY-UPDATES-LOGO-removebg-preview.png" alt="Calculator Logo"> 
 </header>
+
   
 <h1 style="text-align:center; color:#0d47a1; text-shadow:1px 1px 4px rgba(0,0,0,0.3);">MSU NEP Result Calculator (with Grace)</h1>
 
-<header>
-  <nav style="text-align:center; display:flex; justify-content:center; gap:12px;">
-    <a href="https://whatsapp.com/channel/0029Va4irjP23n3Vh4HMcx00" class="cta">WhatsApp</a>
-    <a href="https://t.me/myMSUSre" class="cta">Telegram</a>
-    <a href="https://t.me/HELPforDmbot" class="cta">Contact</a>
-  </nav>
-</header>
+  <style>
+/* 3D HD buttons for WhatsApp, Telegram, Contact */
+.nav-btn {
+  display:inline-block;
+  padding:12px 24px;
+  margin:5px;
+  border:none;
+  border-radius:12px;
+  background:#0288d1;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25), 0 4px 8px rgba(0,0,0,0.15);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-decoration:none;
+}
+.nav-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.35), 0 6px 12px rgba(0,0,0,0.2);
+}
+</style>
+
+<!-- Replace your nav buttons with -->
+<nav style="text-align:center; display:flex; justify-content:center; gap:12px; margin-bottom:20px;">
+  <a href="https://whatsapp.com/channel/0029Va4irjP23n3Vh4HMcx00" class="nav-btn">WhatsApp</a>
+  <a href="https://t.me/myMSUSre" class="nav-btn">Telegram</a>
+  <a href="https://t.me/HELPforDmbot" class="nav-btn">Contact</a>
+</nav>
 
 <main class="container">
   <div style="text-align: center; margin: 20px 0; color:#007bff; font-size:15px;">
@@ -129,7 +151,20 @@ body {
     <b>"ग्रेस नियम केवल दिसंबर - 2024 एवं जून - 2025 परीक्षाओ पर लागू होगा।"</b>
   </div>
   
-<div style="text-align: center; margin: 20px 0;"> <h2 style="font-size: 18px; font-weight: bold; color: #2c3e50;"> Meet Our <span style="color: #007bff;">Admin Team</span> </h2> <p style="font-size: 16px; color: #555;"> <b>Aditya Chaudhary</b> (Owner) | <b>Chetan Joshi</b> (Co-Owner) | <b>DM, PC, AP, AM, GS</b> (Admin Team) </p> </div>
+<div style="text-align: center; margin: 20px auto; max-width:800px; 
+            padding:20px; border-radius:16px; 
+            background:#ffffff; 
+            box-shadow: 0 12px 25px rgba(0,0,0,0.2), 0 6px 12px rgba(0,0,0,0.15);
+            transform: perspective(500px) rotateX(1deg) rotateY(-1deg); 
+            transition: transform 0.3s;">
+  <h2 style="font-size: 20px; font-weight: bold; color: #2c3e50; 
+             text-shadow: 1px 1px 4px rgba(0,0,0,0.15); margin-bottom:10px;">
+    Meet Our <span style="color:#0288d1;">Admin Team</span>
+  </h2>
+  <p style="font-size: 16px; color: #555; text-shadow:0.5px 0.5px 2px rgba(0,0,0,0.1);">
+    <b>Aditya Chaudhary</b> (Owner) | <b>Chetan Joshi</b> (Co-Owner) | <b>DM, PC, AP, AM, GS</b> (Admin Team)
+  </p>
+</div>
 
 
   <!-- Tabs -->
