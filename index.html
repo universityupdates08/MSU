@@ -229,23 +229,30 @@ function calculateUG(){
     let need=0;
 
     if(type==="theory"){
-      if(ext>=25 && total>=33){ passed=true; passCount++; }
-      else {
-        need=Math.max(25-ext,33-total);
-        if(need>0 && need<=5){ ext+=need; total+=need; graceGiven=need; }
-      }
-      if(!passed) remarks=`Fail: Need ${need} more marks in External/Total`;
-    } else if(type==="cocurricular"){
-      if(total>=40){ passed=true; passCount++; }
-      else {
-        need=40-total;
-        if(need>0 && need<=5){ ext+=need; total+=need; graceGiven=need; }
-      }
-      if(!passed) remarks=`Fail: Need ${need} more marks in External/Total`;
-    } else { // practical/project/skill
-      if(total>=40){ passed=true; passCount++; }
-      else { remarks="Fail: Total <40"; }
-    }
+  if(ext>=25 && total>=33){ passed=true; passCount++; }
+  else {
+    need=Math.max(25-ext,33-total);
+    if(need>0 && need<=5){ ext+=need; total+=need; graceGiven=need; }
+  }
+  if(!passed) remarks=`Fail: Need ${need} more marks in External/Total`;
+
+} else if(type==="practical"){
+  // practical same rule as theory but NO grace
+  if(ext>=25 && total>=33){ passed=true; passCount++; }
+  else { remarks="Fail: Practical needs 25 External & 33 Total"; }
+
+} else if(type==="cocurricular"){
+  if(total>=40){ passed=true; passCount++; }
+  else {
+    need=40-total;
+    if(need>0 && need<=5){ ext+=need; total+=need; graceGiven=need; }
+  }
+  if(!passed) remarks=`Fail: Need ${need} more marks in Co-Curricular`;
+
+} else { // project/skill
+  if(total>=40){ passed=true; passCount++; }
+  else { remarks="Fail: Total <40"; }
+}
 
     if(graceGiven>0){ totalGrace+=graceGiven; subjectsUsed++; if(ext>=25 && total>=33 && type!=="cocurricular") passed=true; if(type==="cocurricular" && total>=40) passed=true; if(passed) passCount++; }
     if(!passed) failCount++;
