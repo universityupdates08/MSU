@@ -1,11 +1,10 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>  
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MSU NEP Result Calculator (with Grace)</title>
 <style>
-
 /* === Header === */
 header {
   text-align: center;
@@ -26,7 +25,6 @@ header h1 {
   font-weight: bold;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
 }
-
 body { 
   font-family: Arial, sans-serif; 
   background: linear-gradient(135deg, #fffde7, #ffffff, #e3f2fd); 
@@ -97,13 +95,16 @@ body {
 .fail{color:red;font-weight:bold;} 
 .grace{color:red;} 
 .remark{color:#555; font-style:italic; margin-left:8px;}
-.print-btn { margin-top:10px; background:#28a745; color:#fff; }
-.print-btn:hover { background:#218838; }
+.print-btn, .download-btn { margin-top:10px; background:#28a745; color:#fff; }
+.print-btn:hover, .download-btn:hover { background:#218838; }
 </style>
+
+<!-- Include jsPDF & html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
-  <!-- HEADER -->
 <header>
   <img src="https://i.ibb.co/nMC0877T/UNIVERSITY-UPDATES-LOGO-removebg-preview.png" alt="Calculator Logo">
 </header>
@@ -124,7 +125,6 @@ body {
     "This is for information purposes only. Errors in result calculation are possible."
   </div>
   
-<main class="container">
   <div style="text-align: center; margin: 20px 0; color:#DD511D; font-size:15px;">    
     <b>"ग्रेस नियम केवल दिसंबर - 2024 एवं जून - 2025 परीक्षाओ पर लागू होगा।"</b>
   </div>
@@ -189,11 +189,6 @@ body {
     <div id="note" style="font-weight:bold; color:#0d47a1;">This result is only for information purpose. Not valid for admission or official use.</div>
   </div>
 
-  <!-- Whole Page Print Button -->
-  <div style="text-align:center; margin:20px 0;">
-    <button class="print-btn" onclick="window.print()">🖨️ Print</button>
-  </div>
-
 </main>
 
 <footer style="text-align:center; margin:20px 0; font-weight:bold; color:#007bff;">
@@ -241,7 +236,22 @@ function addSubjectPG(){
   document.getElementById("pg-subjects").appendChild(div);
 }
 
-// === COMMON RENDER FUNCTION ===
+// === DOWNLOAD PDF FUNCTION ===
+function downloadPDF(printableId){
+  const { jsPDF } = window.jspdf;
+  const element = document.getElementById(printableId);
+
+  html2canvas(element, { scale: 2 }).then(canvas => {
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF('p', 'pt', 'a4');
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.save('MSU_Result.pdf');
+  });
+}
+
+// === COMMON RENDER FUNCTION WITH DOWNLOAD BUTTON ===
 function renderResult(containerId, subjects, overallPass, passCount, failCount, totalGrace, subjectsUsed){
   if(subjects.length===0){
     document.getElementById(containerId).innerHTML=
@@ -249,14 +259,27 @@ function renderResult(containerId, subjects, overallPass, passCount, failCount, 
     return;
   }
 
-  let resultHTML = `<div style="overflow-x:auto;"><table border="1" style="margin-top:10px; border-collapse:collapse; width:100%; text-align:center; box-shadow:0 4px 14px rgba(0,0,0,0.25); border-radius:12px; overflow:hidden;">
-    <tr style="background:#007bff; color:white;">
-      <th>Subject</th><th>External</th><th>Grace</th><th>External after Grace</th>
-      <th>Internal</th><th>Total</th><th>Status</th><th>Remarks</th>
-    </tr>`;
+  let now = new Date();
+  let dateTime = now.toLocaleString();
+
+  let resultHTML = `
+    <div id="printable-${containerId}" style="padding:10px; background:#f9f9f9;">
+      <div style="text-align:center; margin-bottom:10px;">
+        <img src="https://i.ibb.co/nMC0877T/UNIVERSITY-UPDATES-LOGO-removebg-preview.png" 
+             alt="Logo" style="height:60px; margin-bottom:5px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.4));">
+        <div><b>Date & Time:</b> ${dateTime}</div>
+      </div>
+      <div style="overflow-x:auto;">
+      <table border="1" style="margin-top:10px; border-collapse:collapse; width:100%; text-align:center; 
+                                box-shadow:0 4px 14px rgba(0,0,0,0.25); border-radius:12px; overflow:hidden;">
+        <tr style="background:linear-gradient(135deg,#89f7fe,#66a6ff); color:white; text-shadow:1px 1px 2px rgba(0,0,0,0.4);">
+          <th>Subject</th><th>External</th><th>Grace</th><th>External after Grace</th>
+          <th>Internal</th><th>Total</th><th>Status</th><th>Remarks</th>
+        </tr>`;
+
   subjects.forEach(s=>{
     resultHTML+=`
-      <tr style="background:${s.passed?'#e8f5e9':'#ffebee'};">
+      <tr style="background:${s.passed?'#e8f5e9':'#ffebee'}; font-weight:bold; box-shadow:inset 0 1px 3px rgba(0,0,0,0.1);">
         <td>${s.name}</td><td>${s.originalExt}</td><td>${s.graceGiven>0?s.graceGiven:"-"}</td>
         <td>${s.ext}</td><td>${s.inte}</td><td>${s.total}</td>
         <td>${s.passed?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"}</td>
@@ -265,12 +288,20 @@ function renderResult(containerId, subjects, overallPass, passCount, failCount, 
         </td>
       </tr>`;
   });
+
   resultHTML+=`<tr style="font-weight:bold; background:#f1f8ff;">
       <td colspan="8">Final Result: ${overallPass?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"} |
       Total Subjects: ${subjects.length}, Passed: ${passCount}, Failed: ${failCount},
       Grace Used: ${totalGrace} (in ${subjectsUsed} subject${subjectsUsed!==1?"s":""})</td>
-    </tr></table></div>`;
-  document.getElementById(containerId).innerHTML=resultHTML;
+    </tr>
+    </table>
+    </div>
+    <div style="text-align:center; margin-top:10px;">
+      <button class="download-btn" onclick="downloadPDF('printable-${containerId}')">⬇️ Download PDF</button>
+    </div>
+  </div>`;
+
+  document.getElementById(containerId).innerHTML = resultHTML;
 }
 
 // === UG LOGIC ===
