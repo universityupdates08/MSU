@@ -1,13 +1,233 @@
-Result Size: 682 x 540
--
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MSU NEP Result Calculator (with Grace)</title>
+<style>
+
+/* === Header === */
+header {
+  text-align: center;
+  padding: 15px;
+  background: linear-gradient(135deg, #ff9966, #ff5e62);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+header img {
+  height: 60px;
+  margin-bottom: 8px;
+}
+header h1 {
+  margin: 5px 0;
+  font-size: 28px;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+body { font-family: Arial, sans-serif; background:#fffde7; margin:0; padding:10px; }
+.tabs { display:flex; justify-content:center; margin:20px 0; }
+.tab-btn { background:#fff8dc; border:2px solid #FFC107; color:#FFC107; padding:10px 20px; margin:0 5px; border-radius:8px; font-weight:bold; cursor:pointer; }
+.tab-btn.active { background:#FFC107; color:#333; }
+.tab-content { display:none; max-width:900px; margin:auto; background:#fffbea; padding:20px; border-radius:12px; box-shadow:0 4px 8px rgba(255,193,7,0.3); }
+.tab-content.active { display:block; }
+.cta, button { padding:8px 16px; border:none; border-radius:8px; background:linear-gradient(135deg,#FFD95A,#FFC107); font-weight:600; cursor:pointer; transition:.3s; }
+.cta:hover, button:hover { transform:scale(1.05); box-shadow:0 0 12px rgba(255,193,7,0.6); }
+.rules { background:#fffde7; padding:10px; border:1px solid #ccc; margin:10px 0; border-radius:8px; }
+.subject { display:flex; gap:6px; margin:4px 0; }
+.subject input { width:50px; }
+.pass{color:green;font-weight:bold;} 
+.fail{color:red;font-weight:bold;} 
+.grace{color:red;} 
+.remark{color:#555; font-style:italic; margin-left:8px;}
+.print-btn { margin-top:10px; background:#28a745; color:#fff; }
+.print-btn:hover { background:#218838; }
+</style>
+</head>
+<body>
+
+  <!-- HEADER -->
+<header>
+  <img src="https://i.ibb.co/nMC0877T/UNIVERSITY-UPDATES-LOGO-removebg-preview.png" alt="Calculator Logo">
+</header>
+  
+<h1 style="text-align:center">MSU NEP Result Calculator (with Grace)</h1>
+
+<header>
+  <nav style="text-align:center; display:flex; justify-content:center; gap:12px;">
+    <a href="https://whatsapp.com/channel/0029Va4irjP23n3Vh4HMcx00" class="cta">WhatsApp</a>
+    <a href="https://t.me/myMSUSre" class="cta">Telegram</a>
+    <a href="https://t.me/HELPforDmbot" class="cta">Contact</a>
+  </nav>
+</header>
+
+<main class="container">
+  <div style="text-align: center; margin: 20px 0; color:#007bff;">
+    <b>Note:</b> This is not an Official Website of <b>Maa Shakumbhari University, Saharanpur</b>.  
+    "This is for information purposes only. Errors in result calculation are possible."
+  </div>
+      
+  <div style="text-align: center; margin: 20px 0;">
+    <h2 style="font-size: 18px; font-weight: bold; color: #2c3e50;">
+      Meet Our <span style="color: #007bff;">Admin Team</span>
+    </h2>
+    <p style="font-size: 16px; color: #555;">
+      <b>Aditya Chaudhary</b> (Owner) | <b>Chetan Joshi</b> (Co-Owner) | <b>DM, PC, AP, AM, GS</b> (Admin Team)
+    </p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab('ugTab',event)">UG (B.A./B.Sc./B.Com)</button>
+    <button class="tab-btn" onclick="openTab('pgTab',event)">PG (M.A./M.Sc./M.Com)</button>
+  </div>
+
+  <!-- UG Section -->
+  <div class="tab-content active" id="ugTab">
+    <h2>UG NEP Result Calculator</h2>
+    <div class="rules">
+      <ul>
+        <li>Max 5 grace marks</li>
+        <li>Grace in max 2 subjects</li>
+        <li>Grace Marks will be given in <b>External Theory & Co-Curricular</b> only</li>
+        <li>No Grace in Practical/Skill Development/Viva/Project</li>
+        <li>Passing: Major/Minor = 25 External & 33 Total</li>
+        <li>Passing: Skill/Project/Co-Curricular = 40 Total</li>
+      </ul>
+    </div>
+    <div id="ug-subjects"></div>
+    <button onclick="addSubjectUG()">➕ Add Subject</button>
+    <button onclick="calculateUG()">📊 Calculate UG Result</button>
+    <div id="ug-result"></div>
+  </div>
+
+  <!-- PG Section -->
+  <div class="tab-content" id="pgTab">
+    <h2>PG NEP Result Calculator</h2>
+    <div class="rules">
+      <ul>
+        <li>Max 5 grace marks</li>
+        <li>Grace in max 2 subjects</li>
+        <li>Max 3 grace per subject</li>
+        <li>Grace Marks will be given in <b>External Theory</b> only</li>
+        <li>No Grace in Practical/Viva/Project</li>
+        <li>Passing: Major/Minor = 25 External & 40 Total</li>
+        <li>Passing: Project = 40 Total</li>
+      </ul>
+    </div>
+    <div id="pg-subjects"></div>
+    <button onclick="addSubjectPG()">➕ Add Subject</button>
+    <button onclick="calculatePG()">📊 Calculate PG Result</button>
+    <div id="pg-result"></div>
+  </div>
+
+  <div style="text-align:center; margin:20px 0;">
+    <div id="note">This result is only for information purpose. Not valid for admission or official use.</div>
+  </div>
+
+  <!-- Whole Page Print Button -->
+  <div style="text-align:center; margin:20px 0;">
+    <button class="print-btn" onclick="window.print()">🖨️ Print</button>
+  </div>
+
+</main>
+
+<footer style="text-align:center; margin:20px 0;">
+  © 2025 | Designed by <b>Aditya Chaudhary💗</b>
+</footer>
+
+<script>
+// === TAB SWITCH ===
+function openTab(tabId,evt){
+  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".tab-content").forEach(c=>c.classList.remove("active"));
+  evt.target.classList.add("active");
+  document.getElementById(tabId).classList.add("active");
+}
+
+// === ADD SUBJECTS ===
+function addSubjectUG(){
+  const div=document.createElement("div");
+  div.className="subject";
+  div.innerHTML=`Name:<input type="text" placeholder="Subject">
+                 Ext:<input type="number" min="0" max="75">
+                 Int:<input type="number" min="0" max="25">
+                 Type:<select>
+                   <option value="theory">Theory</option>
+                   <option value="practical">Practical</option>
+                   <option value="project">Project</option>
+                   <option value="skill">Skill Development</option>
+                   <option value="cocurricular">Co-Curricular</option>
+                 </select>
+                 <button onclick="this.parentElement.remove()" style="background:#dc3545;color:white;">X</button>`;
+  document.getElementById("ug-subjects").appendChild(div);
+}
+function addSubjectPG(){
+  const div=document.createElement("div");
+  div.className="subject";
+  div.innerHTML=`Name:<input type="text" placeholder="Subject">
+                 Ext:<input type="number" min="0" max="75">
+                 Int:<input type="number" min="0" max="25">
+                 Type:<select>
+                   <option value="theory">Theory</option>
+                   <option value="practical">Practical</option>
+                   <option value="project">Project</option>
+                 </select>
+                 <button onclick="this.parentElement.remove()" style="background:#dc3545;color:white;">X</button>`;
+  document.getElementById("pg-subjects").appendChild(div);
+}
+
+// === COMMON RENDER FUNCTION ===
+function renderResult(containerId, subjects, overallPass, passCount, failCount, totalGrace, subjectsUsed){
+  if(subjects.length===0){
+    document.getElementById(containerId).innerHTML=
+      `<p style="color:red; font-weight:bold;">⚠ Please add at least one subject to calculate result.</p>`;
+    return;
+  }
+
+  let resultHTML = `<table border="1" style="margin-top:10px; border-collapse:collapse; width:100%; text-align:center;">
+    <tr><th>Subject</th><th>External</th><th>Grace</th><th>External after Grace</th>
+    <th>Internal</th><th>Total</th><th>Status</th><th>Remarks</th></tr>`;
+  subjects.forEach(s=>{
+    resultHTML+=`
+      <tr>
+        <td>${s.name}</td><td>${s.originalExt}</td><td>${s.graceGiven>0?s.graceGiven:"-"}</td>
+        <td>${s.ext}</td><td>${s.inte}</td><td>${s.total}</td>
+        <td>${s.passed?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"}</td>
+        <td style="color:${s.remarks.includes("Cancelled")||s.remarks.includes("Fail")?"red":"green"};">
+          ${s.remarks}
+        </td>
+      </tr>`;
+  });
+  resultHTML+=`<tr style="font-weight:bold; background:#f5f5f5;">
+      <td colspan="8">Final Result: ${overallPass?"<span class='pass'>PASS</span>":"<span class='fail'>FAIL</span>"} |
+      Total Subjects: ${subjects.length}, Passed: ${passCount}, Failed: ${failCount},
+      Grace Used: ${totalGrace} (in ${subjectsUsed} subject${subjectsUsed!==1?"s":""})</td>
+    </tr></table>`;
+  document.getElementById(containerId).innerHTML=resultHTML;
+}
+
+// === UG LOGIC ===
+function calculateUG(){
+  const subs=document.querySelectorAll("#ug-subjects .subject");
+  if(subs.length===0){
+    document.getElementById("ug-result").innerHTML=
+      `<p style="color:red; font-weight:bold;">⚠ Please add at least one subject to calculate result.</p>`;
+    return;
+  }
+
+  let subjectsData=[];
+  let totalGrace=0, subjectsUsed=0, passCount=0, failCount=0;
+
+  subs.forEach(s=>{
     const name=s.querySelector("input[type=text]").value||"Subject";
     let ext=parseInt(s.querySelectorAll("input")[1].value)||0;
     let inte=parseInt(s.querySelectorAll("input")[2].value)||0;
     const type=s.querySelector("select").value;
-​
+
     let total=ext+inte, passed=false, graceGiven=0, remarks="", originalExt=ext;
     let need=0;
-​
+
     if(type==="theory"){
   if(ext>=25 && total>=33){ passed=true; passCount++; }
   else {
@@ -15,12 +235,12 @@ Result Size: 682 x 540
     if(need>0 && need<=5){ ext+=need; total+=need; graceGiven=need; }
   }
   if(!passed) remarks=`Fail: Need ${need} more marks in External/Total`;
-​
+
 } else if(type==="practical"){
   // practical same rule as theory but NO grace
   if(ext>=25 && total>=33){ passed=true; passCount++; }
   else { remarks="Fail: Practical needs 25 External & 33 Total"; }
-​
+
 } else if(type==="cocurricular"){
   if(total>=40){ passed=true; passCount++; }
   else {
@@ -28,18 +248,18 @@ Result Size: 682 x 540
     if(need>0 && need<=5){ ext+=need; total+=need; graceGiven=need; }
   }
   if(!passed) remarks=`Fail: Need ${need} more marks in Co-Curricular`;
-​
+
 } else { // project/skill
   if(total>=40){ passed=true; passCount++; }
   else { remarks="Fail: Total <40"; }
 }
-​
+
     if(graceGiven>0){ totalGrace+=graceGiven; subjectsUsed++; if(ext>=25 && total>=33 && type!=="cocurricular") passed=true; if(type==="cocurricular" && total>=40) passed=true; if(passed) passCount++; }
     if(!passed) failCount++;
-​
+
     subjectsData.push({name,ext,inte,total,passed,graceGiven,remarks,originalExt});
   });
-​
+
   // Grace rule check: cancel if >5 total or >2 subjects
   if(totalGrace>5 || subjectsUsed>2){
     subjectsData.forEach(sd=>{
@@ -49,3 +269,74 @@ Result Size: 682 x 540
         sd.passed=false;
         sd.remarks=`Grace Cancelled (Not Eligible). Need ${Math.max(25-sd.originalExt,33-sd.total)} more marks in External`;
         sd.graceGiven="-";
+      }
+    });
+    passCount=subjectsData.filter(s=>s.passed).length;
+    failCount=subjectsData.length-passCount;
+    totalGrace=0; subjectsUsed=0;
+  }
+
+  renderResult("ug-result",subjectsData,failCount===0,passCount,failCount,totalGrace,subjectsUsed);
+}
+
+// === PG LOGIC ===
+function calculatePG(){
+  const subs=document.querySelectorAll("#pg-subjects .subject");
+  if(subs.length===0){
+    document.getElementById("pg-result").innerHTML=
+      `<p style="color:red; font-weight:bold;">⚠ Please add at least one subject to calculate result.</p>`;
+    return;
+  }
+
+  let subjectsData=[];
+  let totalGrace=0, subjectsUsed=0, passCount=0, failCount=0;
+
+  subs.forEach(s=>{
+    const name=s.querySelector("input[type=text]").value||"Subject";
+    let ext=parseInt(s.querySelectorAll("input")[1].value)||0;
+    let inte=parseInt(s.querySelectorAll("input")[2].value)||0;
+    const type=s.querySelector("select").value;
+
+    let total=ext+inte, passed=false, graceGiven=0, remarks="", originalExt=ext;
+    let need=0;
+
+    if(type==="theory"){
+      if(ext>=25 && total>=40){ passed=true; passCount++; }
+      else {
+        need=Math.max(25-ext,40-total);
+        if(need>0 && need<=3){ ext+=need; total+=need; graceGiven=need; }
+      }
+      if(!passed) remarks=`Fail: Need ${need} more marks in External/Total`;
+    } else { // practical/project
+      if(total>=40){ passed=true; passCount++; }
+      else { remarks="Fail: Total <40"; }
+    }
+
+    if(graceGiven>0){ totalGrace+=graceGiven; subjectsUsed++; if(ext>=25 && total>=40) passed=true; if(passed) passCount++; }
+    if(!passed) failCount++;
+
+    subjectsData.push({name,ext,inte,total,passed,graceGiven,remarks,originalExt});
+  });
+
+  // Grace rule check: cancel if >5 total or >2 subjects
+  if(totalGrace>5 || subjectsUsed>2){
+    subjectsData.forEach(sd=>{
+      if(sd.graceGiven>0){
+        sd.ext=sd.originalExt;
+        sd.total=sd.originalExt+sd.inte;
+        sd.passed=false;
+        sd.remarks=`Grace Cancelled (Not Eligible). Need ${Math.max(25-sd.originalExt,40-sd.total)} more marks in External`;
+        sd.graceGiven="-";
+      }
+    });
+    passCount=subjectsData.filter(s=>s.passed).length;
+    failCount=subjectsData.length-passCount;
+    totalGrace=0; subjectsUsed=0;
+  }
+
+  renderResult("pg-result",subjectsData,failCount===0,passCount,failCount,totalGrace,subjectsUsed);
+}
+</script>
+
+</body>
+</html>
